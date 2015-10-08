@@ -4,10 +4,8 @@ Tutorials
 .. toctree::
    :maxdepth: 1
 
-   tutorial.getting_data   
-   corpora
-   tutorial.bibliocoupling
-   tutorial.coauthors
-   tutorial.cocitation
-   tutorial.geonetworks
-   tutorial.mallet
+   tutorial.getting_data
+   tutorial.parsing_data
+   tutorial.reconciling_data
+   tutorial.networks
+   tutorial.topic_modeling
