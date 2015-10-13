@@ -12,7 +12,6 @@
 # serve to show the default.
 
 import sys, os
-sys.path.append("/Users/erickpeirson/Dropbox/DigitalHPS/Scripts/tethne")
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -26,9 +25,11 @@ sys.path.append("/Users/erickpeirson/Dropbox/DigitalHPS/Scripts/tethne")
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.autosummary', 'numpydoc', 'rst2pdf.pdfbuilder']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode',
+              'sphinx.ext.autosummary', 'numpydoc', 'rst2pdf.pdfbuilder']
 
-pdf_documents = [('index', u'tethne', u'Tethne 0.6.0-beta documentation', u'Erick Peirson'),]
+pdf_documents = [('index', u'tethne', u'Tethne 1.0 documentation',
+                  u'Erick Peirson'),]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -44,14 +45,14 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'tethne'
-copyright = u'2013, Author'
+copyright = u'2015, Author'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = ''
+version = '1.0'
 # The full version, including alpha/beta/rc tags.
 release = ''
 
@@ -250,8 +251,8 @@ texinfo_documents = [
 # Bibliographic Dublin Core info.
 epub_title = u'tethne'
 epub_author = u'Author'
-epub_publisher = u'Author'
-epub_copyright = u'2013, Author'
+epub_publisher = u'Erick Peirson, Digital Innovation Group'
+epub_copyright = u'2015, Author'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
