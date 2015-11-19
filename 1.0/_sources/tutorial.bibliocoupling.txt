@@ -4,16 +4,16 @@ Bibliographic Coupling
 .. contents::
    :local:
    :depth: 2
-   
-Bibliographic coupling can be a useful and computationally cheap way to explore the 
+
+Bibliographic coupling can be a useful and computationally cheap way to explore the
 thematic topology of a large scientific literature.
 
-`Bibliographic coupling <http://en.wikipedia.org/wiki/Bibliographic_coupling>`_ was first 
+`Bibliographic coupling <http://en.wikipedia.org/wiki/Bibliographic_coupling>`_ was first
 proposed as a method for detecting latent topical affinities among research publications
-by Myer M. Kessler at MIT in 1958. In 1972, J.C. Donohue suggested that bibliographic 
-coupling could be used to the map "research fronts" in science, and this method, along 
-with co-citation analysis and other citation-based clustering techniques, became a core 
-methodology of the science-mapping craze of the 1970s. Bibliographic coupling is still 
+by Myer M. Kessler at MIT in 1958. In 1972, J.C. Donohue suggested that bibliographic
+coupling could be used to the map "research fronts" in science, and this method, along
+with co-citation analysis and other citation-based clustering techniques, became a core
+methodology of the science-mapping craze of the 1970s. Bibliographic coupling is still
 employed in the context of both information-retrieval and science-studies.
 
 Two papers are bibliographically coupled if they both cite at least some of the same
@@ -35,8 +35,8 @@ plugin, to generate a visualization that looks something like this:
 .. image:: _static/images/bibliographic_coupling.png
    :width: 600
    :align: center
-   
-In this example, each node represents a scientific paper, and each densely-connected 
+
+In this example, each node represents a scientific paper, and each densely-connected
 colored group of nodes corresponds to a research theme or sub-field that holds those
 papers together.
 
@@ -48,12 +48,12 @@ Before you begin, be sure to install the latest version of Tethne. Consult the
 
 **If you run into problems**, don't panic. Tethne is under active development, and there
 are certainly bugs to be found. Please report any problems, including errors in this
-tutorial, via our `GitHub issue tracker 
+tutorial, via our `GitHub issue tracker
 <https://github.com/diging/tethne/issues?state=open>`_.
 
-For this tutorial, you'll need some citation data from the ISI Web of Science. If this is 
+For this tutorial, you'll need some citation data from the ISI Web of Science. If this is
 your first time working with WoS citation data, check out :ref:`gettingdata`\. We'll
-assume that you have downloaded a few sets of records from WoS, and stored them all in 
+assume that you have downloaded a few sets of records from WoS, and stored them all in
 the same directory.
 
 .. code-block:: python
@@ -72,7 +72,7 @@ a new :class:`.Corpus` called ``MyCorpus``.
 
    >>> from tethne.readers import wos
    >>> MyCorpus = wos.corpus_from_dir(datapath)
-   
+
 ``MyCorpus`` should contain some :class:`.Paper`\s, as well as some citations.
 
 .. code-block:: python
@@ -89,7 +89,7 @@ and make sure that you downloaded full records with citations from the WoS datab
 
 Building a Static Network
 -------------------------
-We will first build a static bibliographic coupling network using all of the 
+We will first build a static bibliographic coupling network using all of the
 :class:`.Paper`\s in our :class:`.Corpus`\. To create a static network, we can use the
 methods in :mod:`.networks` directly. The :func:`.bibliographic_coupling` method can be
 found in the :mod:`.networks.papers` module.
@@ -100,7 +100,7 @@ found in the :mod:`.networks.papers` module.
    >>> bc_network = papers.bibliographic_coupling(MyCorpus.all_papers(), threshold=3)
 
 In the example above, the :func:`Corpus.all_papers` method gets all of the papers from
-``MyCorpus``. ``threshold=3`` means that two papers must share at least three 
+``MyCorpus``. ``threshold=3`` means that two papers must share at least three
 bibliographic references to be considered coupled.
 
 Generating an informative graph using bibliographic coupling will require some tuning.
@@ -119,19 +119,19 @@ metric ``s``:
 .. math::
 
    s = \frac{N_{i|j}}{\sqrt{ N_i N_j }}
-   
-If you choose to use absolute overlap (``weighted`` is ``False``), we suggest starting 
+
+If you choose to use absolute overlap (``weighted`` is ``False``), we suggest starting
 with a ``threshold`` of ``5``, and then adjusting it upward or downward to achieve optimal
 clustering. If you choose to use normalized overlap (``weighted`` is ``True``), then try
 starting with a ``threshold`` of ``0.05``.
 
-We'll also include some node attributes: ``date``, ``jtitle`` (journal title), and 
+We'll also include some node attributes: ``date``, ``jtitle`` (journal title), and
 ``atitle`` (article title).
 
 .. code-block:: python
 
    >>> from tethne.networks import papers
-   >>> bc_network = papers.bibliographic_coupling(MyCorpus.all_papers(), threshold=0.05, 
+   >>> bc_network = papers.bibliographic_coupling(MyCorpus.all_papers(), threshold=0.05,
    ...     node_attribs=['date', 'jtitle', 'atitle'], weighted=True)
 
 
@@ -141,12 +141,12 @@ Export to GraphML
 `GraphML <http://graphml.graphdrawing.org>`_ is a widely-used static network data format.
 We will write our network to GraphML for visualization in Cytoscape.
 
-This step should generate a file in your output folder called 
+This step should generate a file in your output folder called
 ``[DATASET_ID]_graph_all.graphml``.
 
 .. image:: _static/images/tutorial/coauthors.6.png
    :width: 600
-   :align: center   
+   :align: center
 
 Use the :func:`.to_graphml` method in :mod:`.writers.graph` to create a GraphML
 data file.
@@ -155,7 +155,7 @@ data file.
 
    >>> from tethne.writers import graph
    >>> graph.to_graphml(bc_network, '/path/to/my/bc_network.graphml')
-   
+
 In the example above, a new file called ``bc_network.graphml`` should be created in
 the ``/path/to/my`` directory.
 
@@ -163,8 +163,8 @@ Visualizing Static Networks in Cytoscape
 ----------------------------------------
 
 Cytoscape was developed in 2002, with funding from the National Instute of General Medical
-Sciences and the National Resource for Network Biology. The primary user base is the 
-biomedical research community, especially systems biologists who study gene or protein 
+Sciences and the National Resource for Network Biology. The primary user base is the
+biomedical research community, especially systems biologists who study gene or protein
 interaction networks and pathways.
 
 You can download Cytoscape 3 from `http://www.cytoscape.org <http://www.cytoscape.org>`_.
@@ -181,7 +181,7 @@ edge-weighted layout, select ``Layout > Edge-weighted Spring Embedded > similari
 
 .. image:: _static/images/bibliocoupling/cyto.1.png
    :width: 900
-   :align: center  
+   :align: center
 
 Your network may look like a giant hairball. If you can't see much structure at all, you
 may wish to go back and rebuild the graph with a higher threshold. If your network is very
@@ -192,16 +192,16 @@ your network.
 
 .. image:: _static/images/bibliocoupling/cyto.2.png
    :width: 900
-   :align: center  
+   :align: center
 
 To get some idea of whether certain clusters in the network correspond to publication
-in the same journal, set node fill color as a discrete function of ``jtitle``. You can 
+in the same journal, set node fill color as a discrete function of ``jtitle``. You can
 automatically generate node fill colors by right-clicking on the visual mapping, and
 selecting ``Mapping Value Generators > Random Color``.
 
 .. image:: _static/images/bibliocoupling/cyto.3.png
    :width: 900
-   :align: center  
+   :align: center
 
 Since you included the title of each paper (``atitle``) as a node attribute, you can
 get some idea of what makes a particular region of the network hang together by selecting
@@ -210,14 +210,14 @@ a quick visual inspection suggests that parasites figure heavily in the selected
 
 .. image:: _static/images/bibliocoupling/cyto.4.png
    :width: 900
-   :align: center 
-   
+   :align: center
+
 .. _clusters:
 
 Cluster Detection
 `````````````````
 Especially if your network is very dense, it may be difficult to find salient clusters
-by visual inspection alone. Clustering algorithms provide a useful way to find 
+by visual inspection alone. Clustering algorithms provide a useful way to find
 groups of nodes that hang together in some way. Most clustering algorithms use an
 optimization function to find groups of nodes that are more densely connected among
 themselves than with the rest of the network.
@@ -231,13 +231,13 @@ the MCODE app:
 
 .. image:: _static/images/bibliocoupling/cyto.5.png
    :width: 500
-   :align: center  
+   :align: center
 
-MCODE should now appear in the ``Apps`` menu. 
+MCODE should now appear in the ``Apps`` menu.
 
 .. image:: _static/images/bibliocoupling/cyto.6.png
    :width: 400
-   :align: center  
+   :align: center
 
 1. Select ``Apps > MCODE > Open MCODE``. A new tab should appear in the ``Control Panel``
    at left.
@@ -247,7 +247,7 @@ MCODE should now appear in the ``Apps`` menu.
 
 .. image:: _static/images/bibliocoupling/cyto.7.png
    :width: 90
-   :align: center  
+   :align: center
 
 After a few moments, a new window should appear on the right side of the Cytoscape
 workspace. Click on a cluster in the ``Cluster Browser`` to select all of the nodes in
@@ -260,7 +260,7 @@ predators in marine inter-tidal zones.
 
 .. image:: _static/images/bibliocoupling/cyto.8.png
    :width: 900
-   :align: center  
+   :align: center
 
 MCODE allows you to create a subnetwork from the selected cluster, or export your results.
 Exporting your results produces a table like the one shown below, listing each of the
@@ -271,30 +271,30 @@ on the terms that uniquely characterize those groups of papers.*
 
 .. image:: _static/images/bibliocoupling/cyto.9.png
    :width: 500
-   :align: center  
+   :align: center
 
-MCODE sets three node attributes: 
+MCODE sets three node attributes:
 
     * ``MCODE_Cluster`` contains the name of the cluster to which each node belongs.
     * ``MCODE_Score`` indicates how strongly the neighbors around a node cluster together.
-      This is similar to the `Local clustering coefficient 
+      This is similar to the `Local clustering coefficient
       <http://en.wikipedia.org/wiki/Clustering_coefficient#Local_clustering_coefficient>`_
     * ``MCODE_Node_Status`` indicates whether a node is clustered, unclustered, or a seed
       node. Seed nodes are the reference nodes chosen by MCODE at the start of the
       cluster-detection process.
-      
+
 In the visualization below, node fill color is mapped to ``MCODE_Cluster``. Node size is
 mapped to ``MCODE_Node_Status``: unclustered nodes are small, seed nodes are large, and
 clustered nodes are intermediate in size.
 
 .. image:: _static/images/bibliocoupling/cyto.10.png
    :width: 900
-   :align: center  
-   
+   :align: center
+
 Evolving Networks
 -----------------
 
-If your dataset contains records from across a broad time-domain, you may also wish to 
+If your dataset contains records from across a broad time-domain, you may also wish to
 view the evolution of your bibliographic coupling network over time. We can do this
 by "slicing" our :class:`.Corpus`\, and generating a :class:`.GraphCollection` that holds
 a set of sequential graphs.
@@ -304,25 +304,25 @@ a set of sequential graphs.
 Slicing a Corpus
 ````````````````
 
-Think of slicing as indexing: we will divide the :class:`.Paper`\s in our :class:`.Corpus` 
-into bins by publication date, so that later on we can retrieve sets of papers 
-corresponding to particular time-periods. You can slice your data using the 
+Think of slicing as indexing: we will divide the :class:`.Paper`\s in our :class:`.Corpus`
+into bins by publication date, so that later on we can retrieve sets of papers
+corresponding to particular time-periods. You can slice your data using the
 :func:`Corpus.slice` method.
 
-In this tutorial, we'll slice our :class:`.Corpus` using a "sliding time-window"\. Rather 
-than dividing papers into sequential non-overlapping time periods, the "time window" 
+In this tutorial, we'll slice our :class:`.Corpus` using a "sliding time-window"\. Rather
+than dividing papers into sequential non-overlapping time periods, the "time window"
 method generates overlapping subsets. For details, see :func:`Corpus.slice`\.
 
 .. figure:: _static/images/bibliocoupling/timeline.timeslice.png
    :width: 400
    :align: center
-   
+
    **Time-period** slicing, with a window-size of 4 years.
-   
+
 .. figure:: _static/images/bibliocoupling/timeline.timewindow.png
    :width: 400
    :align: center
-   
+
    **Time-window** slicing, with a window-size of 4 years and a step-size of 1 year.
 
 To slice our :class:`.Corpus`\, we'll use a four-year sliding time-window.
@@ -335,7 +335,7 @@ Building a GraphCollection
 ```````````````````````````
 
 A :class:`.GraphCollection` is a set of graphs generated from a :class:`.Corpus` or model.
-We can generate a GraphCollection (``G``) in one step, using the 
+We can generate a GraphCollection (``G``) in one step, using the
 :func:`GraphCollection.build` method.
 
 A simple example might look like this:
@@ -359,14 +359,14 @@ parameter. First we'll define the parameters that we wish to set:
    ...		'node_attribs': ['date', 'jtitle', 'atitle'],
    ...		'weighted': True
    ...	}
-   
+
 And then we'll pass those parameters to :func:`GraphCollection.build`\.
 
 .. code-block:: python
 
    >>> G = GraphCollection().build(C, 'date', 'papers' 'bibliographic_coupling',
    ... 		method_kwargs=method_kwargs)
-   
+
 ``G`` should now contain a series of graphs, one per time-window.
 
 .. code-block:: python
@@ -400,8 +400,8 @@ Use the :func:`.writers.collection.to_dxgmml` method to create a `dynamic XGMML
    >>> collection.to_dxgmml(G, '/path/to/my/dynamicnetwork.xgmml')
 
 
-In Cytoscape, import your .xgmml file by selecting 
-``File > Import > Dynamic Network > XGMML File...``. Apply a force-directed or 
+In Cytoscape, import your .xgmml file by selecting
+``File > Import > Dynamic Network > XGMML File...``. Apply a force-directed or
 spring-embedded layout.
 
 .. image:: _static/images/tutorial/coauthors.34.png
@@ -420,5 +420,4 @@ In the Control Panel, select the ``Dynamic Network`` tab.
 
 .. image:: _static/images/tutorial/coauthors.37.png
    :width: 550
-   :align: center   
-
+   :align: center

@@ -1,6 +1,13 @@
 tethne.model package
 ====================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    tethne.model.corpus
+
 Module contents
 ---------------
 
@@ -8,19 +15,3 @@ Module contents
     :members:
     :undoc-members:
     :show-inheritance:
-
-Subpackages
------------
-
-.. toctree::
-
-    tethne.model.corpus
-    tethne.model.managers
-    tethne.model.social
-
-Submodules
-----------
-
-.. toctree::
-
-   tethne.model.basemodel

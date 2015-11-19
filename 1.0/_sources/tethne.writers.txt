@@ -1,6 +1,42 @@
 tethne.writers package
 ======================
 
+Submodules
+----------
+
+tethne.writers.collection module
+--------------------------------
+
+.. automodule:: tethne.writers.collection
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tethne.writers.corpus module
+----------------------------
+
+.. automodule:: tethne.writers.corpus
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tethne.writers.graph module
+---------------------------
+
+.. automodule:: tethne.writers.graph
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tethne.writers.matrix module
+----------------------------
+
+.. automodule:: tethne.writers.matrix
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Module contents
 ---------------
 
@@ -8,14 +44,3 @@ Module contents
     :members:
     :undoc-members:
     :show-inheritance:
-
-Submodules
-----------
-
-.. toctree::
-
-   tethne.writers.collection
-   tethne.writers.corpora
-   tethne.writers.graph
-   tethne.writers.matrix
-

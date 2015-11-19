@@ -1,5 +1,32 @@
-tethne API
-==========
+tethne package
+==============
+
+Subpackages
+-----------
+
+.. toctree::
+
+    tethne.analyze
+    tethne.bin
+    tethne.classes
+    tethne.model
+    tethne.networks
+    tethne.plot
+    tethne.readers
+    tethne.tests
+    tethne.writers
+
+Submodules
+----------
+
+tethne.utilities module
+-----------------------
+
+.. automodule:: tethne.utilities
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
@@ -8,20 +35,3 @@ Module contents
     :members:
     :undoc-members:
     :show-inheritance:
-
-Subpackages
------------
-
-.. toctree::
-
-    tethne.analyze
-    tethne.classes
-    tethne.model
-    tethne.networks
-    tethne.persistence
-    tethne.readers
-    tethne.services
-    tethne.utilities
-    tethne.writers
-
-

@@ -1,6 +1,18 @@
 tethne.model.corpus package
 ===========================
 
+Submodules
+----------
+
+tethne.model.corpus.mallet module
+---------------------------------
+
+.. automodule:: tethne.model.corpus.mallet
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Module contents
 ---------------
 
@@ -8,12 +20,3 @@ Module contents
     :members:
     :undoc-members:
     :show-inheritance:
-    
-Submodules
-----------
-
-.. toctree::
-
-   tethne.model.corpus.dtmmodel
-   tethne.model.corpus.ldamodel
-

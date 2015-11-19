@@ -93,7 +93,8 @@
 
 <span class="kn">from</span> <span class="nn">tethne.networks.base</span> <span class="kn">import</span> <span class="n">multipartite</span><span class="p">,</span> <span class="n">coupling</span><span class="p">,</span> <span class="n">cooccurrence</span>
 
-<div class="viewcode-block" id="direct_citation"><a class="viewcode-back" href="../../../tethne.networks.papers.html#tethne.networks.papers.direct_citation">[docs]</a><span class="k">def</span> <span class="nf">direct_citation</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+<div class="viewcode-block" id="direct_citation"><a class="viewcode-back" href="../../../tethne.networks.papers.html#tethne.networks.papers.direct_citation">[docs]</a><span class="k">def</span> <span class="nf">direct_citation</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A directed paper-citation network.</span>
 
@@ -105,20 +106,20 @@
 <span class="sd">    among papers in the original dataset.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">return</span> <span class="n">multipartite</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;citations&#39;</span><span class="p">],</span> <span class="n">min_weight</span><span class="o">=</span><span class="n">min_weight</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">multipartite</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;citations&#39;</span><span class="p">],</span> <span class="n">min_weight</span><span class="o">=</span><span class="n">min_weight</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="bibliographic_coupling"><a class="viewcode-back" href="../../../tethne.networks.papers.html#tethne.networks.papers.bibliographic_coupling">[docs]</a><span class="k">def</span> <span class="nf">bibliographic_coupling</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="bibliographic_coupling"><a class="viewcode-back" href="../../../tethne.networks.papers.html#tethne.networks.papers.bibliographic_coupling">[docs]</a><span class="k">def</span> <span class="nf">bibliographic_coupling</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a bibliographic coupling network.</span>
 
 <span class="sd">    Two papers are **bibliographically coupled** when they both cite the same,</span>
 <span class="sd">    third, paper.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">coupling</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="s">&#39;citations&#39;</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="n">min_weight</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">coupling</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="s">&#39;citations&#39;</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="n">min_weight</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="cocitation"><a class="viewcode-back" href="../../../tethne.networks.papers.html#tethne.networks.papers.cocitation">[docs]</a><span class="k">def</span> <span class="nf">cocitation</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edge_attrs</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;ayjid&#39;</span><span class="p">,</span> <span class="s">&#39;date&#39;</span><span class="p">]):</span>
+<div class="viewcode-block" id="cocitation"><a class="viewcode-back" href="../../../tethne.networks.papers.html#tethne.networks.papers.cocitation">[docs]</a><span class="k">def</span> <span class="nf">cocitation</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edge_attrs</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;ayjid&#39;</span><span class="p">,</span> <span class="s">&#39;date&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a cocitation network.</span>
 
@@ -131,16 +132,11 @@
 <span class="sd">    `here &lt;http://cluster.cis.drexel.edu/~cchen/citespace/&gt;`_.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">cooccurrence</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="s">&#39;citations&#39;</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="n">min_weight</span><span class="p">,</span>
-                        <span class="n">edge_attrs</span><span class="o">=</span><span class="n">edge_attrs</span><span class="p">)</span>
+                        <span class="n">edge_attrs</span><span class="o">=</span><span class="n">edge_attrs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
 </div>
-<div class="viewcode-block" id="author_coupling"><a class="viewcode-back" href="../../../tethne.networks.papers.html#tethne.networks.papers.author_coupling">[docs]</a><span class="k">def</span> <span class="nf">author_coupling</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">coupling</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="s">&#39;authors&#39;</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="n">min_weight</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="topic_coupling"><a class="viewcode-back" href="../../../tethne.networks.papers.html#tethne.networks.papers.topic_coupling">[docs]</a><span class="k">def</span> <span class="nf">topic_coupling</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Two papers are coupled if they both contain a shared topic above threshold.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">coupling</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="s">&#39;topics&#39;</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="n">min_weight</span><span class="p">)</span></div>
+<div class="viewcode-block" id="author_coupling"><a class="viewcode-back" href="../../../tethne.networks.papers.html#tethne.networks.papers.author_coupling">[docs]</a><span class="k">def</span> <span class="nf">author_coupling</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">coupling</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="s">&#39;authors&#39;</span><span class="p">,</span> <span class="n">min_weight</span><span class="o">=</span><span class="n">min_weight</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 </pre></div>
 
           </div>

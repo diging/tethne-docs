@@ -289,6 +289,28 @@ PubMed.</p>
 <p>For an introduction to collecting bibliographic metadata and full-text
 content with Zotero, see <a class="reference external" href="https://vimeo.com/84316405">this video tutorial</a>.
 For a text version, see <a class="reference external" href="https://github.com/erickpeirson/methods/blob/master/1-collecting-data-with-zotero.md">this tutorial</a>.</p>
+<p>In order to work with your Zotero collection in Tethne, you will first need to
+export it in Zotero
+<a class="reference external" href="https://en.wikipedia.org/wiki/Resource_Description_Framework">RDF</a> format.</p>
+<p>To export a collection:</p>
+<ol class="arabic simple">
+<li>Select the collection from your Library.</li>
+<li>Right-click on the collection, and select &#8220;Export Collection&#8221;. A small modal
+dialog should appear.</li>
+<li>Select &#8220;Zotero RDF&#8221; from the Format field.</li>
+<li>If you want to parse full-text content (e.g. from attached PDF files), check
+the &#8220;Export Files&#8221; option.</li>
+<li>Click OK. An Export (save) dialog should appear.</li>
+<li>Navigate to the place on your filesystem to which you wish to export your
+collection. Put it someplace easy to find, since you&#8217;ll need to know the path
+to your export later on.</li>
+<li>Give your export a name in the &#8220;Save As&#8221; field.</li>
+<li>Click OK.</li>
+</ol>
+<p>This will create a new directory with the name that you specified in step <code class="docutils literal"><span class="pre">7</span></code>.
+Inside, you should find a file with the same name, and a <code class="docutils literal"><span class="pre">.rdf</span></code> extension. If
+you opted to include attached files (step <code class="docutils literal"><span class="pre">4</span></code>), you should also see a folder
+called &#8220;files&#8221;.</p>
 </div>
 </div>
 

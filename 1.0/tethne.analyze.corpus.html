@@ -24,10 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
-    <link rel="top" title="tethne 1.0 documentation" href="index.html" >
-    <link rel="up" title="tethne.analyze package" href="tethne.analyze.html" >
-    <link rel="next" title="tethne.analyze.features module" href="tethne.analyze.features.html" >
-    <link rel="prev" title="tethne.analyze.collection module" href="tethne.analyze.collection.html" > 
+    <link rel="top" title="tethne 1.0 documentation" href="index.html" > 
   </head>
   <body>
 
@@ -51,9 +48,7 @@
         <li class="active"><a href="http://diging.github.io/tethne/">Tethne</a></li>
 	
         <li class="active"><a href="index.html">tethne 1.0 documentation</a></li>
-	
-          <li class="active"><a href="tethne.html" >tethne API</a></li>
-          <li class="active"><a href="tethne.analyze.html" accesskey="U">tethne.analyze package</a></li> 
+	 
     </ul>
               
               
@@ -65,14 +60,6 @@
       <li class="active">
         <a href="py-modindex.html" title="Python Module Index"
            >modules</a>
-      </li>
-      <li class="active">
-        <a href="tethne.analyze.features.html" title="tethne.analyze.features module"
-           accesskey="N">next</a>
-      </li>
-      <li class="active">
-        <a href="tethne.analyze.collection.html" title="tethne.analyze.collection module"
-           accesskey="P">previous</a>
       </li>
     </ul>
               
@@ -97,20 +84,20 @@
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="#tethne.analyze.corpus.burstness" title="tethne.analyze.corpus.burstness"><code class="xref py py-obj docutils literal"><span class="pre">burstness</span></code></a></td>
-<td>Estimate burstness profile for the <code class="docutils literal"><span class="pre">topn</span></code> features (or <code class="docutils literal"><span class="pre">flist</span></code>) in  <code class="docutils literal"><span class="pre">feature</span></code>.</td>
+<td>Estimate burstness profile for the <code class="docutils literal"><span class="pre">topn</span></code> features (or <code class="docutils literal"><span class="pre">flist</span></code>) in <code class="docutils literal"><span class="pre">feature</span></code>.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#tethne.analyze.corpus.feature_burstness" title="tethne.analyze.corpus.feature_burstness"><code class="xref py py-obj docutils literal"><span class="pre">feature_burstness</span></code></a></td>
 <td>Estimate burstness profile for a feature over the <code class="docutils literal"><span class="pre">'date'</span></code> axis.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#tethne.analyze.corpus.sigma" title="tethne.analyze.corpus.sigma"><code class="xref py py-obj docutils literal"><span class="pre">sigma</span></code></a></td>
-<td>Calculate sigma (from <a class="reference external" href="http://arxiv.org/pdf/0904.1439.pdf">Chen 2009</a>)  for all of the nodes in a <a class="reference internal" href="tethne.classes.graphcollection.html#tethne.classes.graphcollection.GraphCollection" title="tethne.classes.graphcollection.GraphCollection"><code class="xref py py-class docutils literal"><span class="pre">GraphCollection</span></code></a>.</td>
+<td>Calculate sigma (from <a class="reference external" href="http://arxiv.org/pdf/0904.1439.pdf">Chen 2009</a>) for all of the nodes in a <a class="reference internal" href="tethne.classes.graphcollection.html#tethne.classes.graphcollection.GraphCollection" title="tethne.classes.graphcollection.GraphCollection"><code class="xref py py-class docutils literal"><span class="pre">GraphCollection</span></code></a>.</td>
 </tr>
 </tbody>
 </table>
 <dl class="function">
 <dt id="tethne.analyze.corpus.burstness">
 <code class="descclassname">tethne.analyze.corpus.</code><code class="descname">burstness</code><span class="sig-paren">(</span><em>corpus</em>, <em>featureset_name</em>, <em>features=[]</em>, <em>k=5</em>, <em>topn=20</em>, <em>perslice=False</em>, <em>normalize=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/analyze/corpus.html#burstness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.analyze.corpus.burstness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Estimate burstness profile for the <code class="docutils literal"><span class="pre">topn</span></code> features (or <code class="docutils literal"><span class="pre">flist</span></code>) in 
+<dd><p>Estimate burstness profile for the <code class="docutils literal"><span class="pre">topn</span></code> features (or <code class="docutils literal"><span class="pre">flist</span></code>) in
 <code class="docutils literal"><span class="pre">feature</span></code>.</p>
 <p>Uses the popular burstness automaton model inroduced by <a class="reference external" href="http://www.cs.cornell.edu/home/kleinber/bhs.pdf">Kleinberg (2002)</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -128,7 +115,7 @@
 </div></blockquote>
 <p><strong>topn</strong> : int or float {0.-1.}</p>
 <blockquote>
-<div><p>(default: 20) Number (int) or percentage (float) of top-occurring 
+<div><p>(default: 20) Number (int) or percentage (float) of top-occurring
 features to return. If <code class="docutils literal"><span class="pre">flist</span></code> is provided, this parameter is ignored.</p>
 </div></blockquote>
 <p><strong>perslice</strong> : bool</p>
@@ -207,8 +194,8 @@ possible state (<code class="docutils literal"><span class="pre">k-1</span></cod
 
 <dl class="function">
 <dt id="tethne.analyze.corpus.sigma">
-<code class="descclassname">tethne.analyze.corpus.</code><code class="descname">sigma</code><span class="sig-paren">(</span><em>G</em>, <em>corpus</em>, <em>featureset_name</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/analyze/corpus.html#sigma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.analyze.corpus.sigma" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate sigma (from <a class="reference external" href="http://arxiv.org/pdf/0904.1439.pdf">Chen 2009</a>) 
+<code class="descclassname">tethne.analyze.corpus.</code><code class="descname">sigma</code><span class="sig-paren">(</span><em>G</em>, <em>corpus</em>, <em>featureset_name</em>, <em>B=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/analyze/corpus.html#sigma"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.analyze.corpus.sigma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate sigma (from <a class="reference external" href="http://arxiv.org/pdf/0904.1439.pdf">Chen 2009</a>)
 for all of the nodes in a <a class="reference internal" href="tethne.classes.graphcollection.html#tethne.classes.graphcollection.GraphCollection" title="tethne.classes.graphcollection.GraphCollection"><code class="xref py py-class docutils literal"><span class="pre">GraphCollection</span></code></a>.</p>
 <p>You can set parameters for burstness estimation using <code class="docutils literal"><span class="pre">kwargs</span></code>:</p>
 <table border="1" class="docutils">
@@ -243,21 +230,15 @@ Defaults to 1.0.</td>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>G</strong> : <a class="reference internal" href="tethne.classes.graphcollection.html#tethne.classes.graphcollection.GraphCollection" title="tethne.classes.graphcollection.GraphCollection"><code class="xref py py-class docutils literal"><span class="pre">GraphCollection</span></code></a></p>
 <p><strong>corpus</strong> : <a class="reference internal" href="tethne.classes.corpus.html#tethne.classes.corpus.Corpus" title="tethne.classes.corpus.Corpus"><code class="xref py py-class docutils literal"><span class="pre">Corpus</span></code></a></p>
 <p><strong>feature</strong> : str</p>
-<blockquote>
-<div><p>Name of a featureset in <cite>corpus</cite>.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>G</strong> : <a class="reference internal" href="tethne.classes.graphcollection.html#tethne.classes.graphcollection.GraphCollection" title="tethne.classes.graphcollection.GraphCollection"><code class="xref py py-class docutils literal"><span class="pre">GraphCollection</span></code></a></p>
 <blockquote class="last">
-<div><p>A graph collection updated with <code class="docutils literal"><span class="pre">sigma</span></code> node attributes.</p>
+<div><p>Name of a featureset in <cite>corpus</cite>.</p>
 </div></blockquote>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<p>Assuming that you have a <a class="reference internal" href="tethne.classes.corpus.html#tethne.classes.corpus.Corpus" title="tethne.classes.corpus.Corpus"><code class="xref py py-class docutils literal"><span class="pre">Corpus</span></code></a> generated from WoS data that has 
+<p>Assuming that you have a <a class="reference internal" href="tethne.classes.corpus.html#tethne.classes.corpus.Corpus" title="tethne.classes.corpus.Corpus"><code class="xref py py-class docutils literal"><span class="pre">Corpus</span></code></a> generated from WoS data that has
 been sliced by <code class="docutils literal"><span class="pre">date</span></code>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Generate a co-citation graph collection.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tethne</span> <span class="kn">import</span> <span class="n">GraphCollection</span>
@@ -293,12 +274,6 @@ and border width is mapped to <code class="docutils literal"><span class="pre">c
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo_round.png" alt="Logo">
             </a></p>
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tethne.analyze.collection.html"
-                        title="previous chapter">tethne.analyze.collection module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tethne.analyze.features.html"
-                        title="next chapter">tethne.analyze.features module</a></p>
   <h3>This Page</h3>
   <div>
     <a href="_sources/tethne.analyze.corpus.txt"

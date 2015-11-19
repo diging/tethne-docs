@@ -292,7 +292,7 @@ may need to increase the number of iterations (set <code class="docutils literal
 </div>
 <div class="section" id="inspecting-the-model">
 <h2><a class="toc-backref" href="#id11">Inspecting the Model</a><a class="headerlink" href="#inspecting-the-model" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="xref py py-func docutils literal"><span class="pre">MALLETModelManager.build()</span></code> method returns a <code class="xref py py-class docutils literal"><span class="pre">LDAModel</span></code> object. You can
+<p>The <code class="xref py py-func docutils literal"><span class="pre">MALLETModelManager.build()</span></code> method returns a <a class="reference internal" href="tethne.model.corpus.mallet.html#tethne.model.corpus.mallet.LDAModel" title="tethne.model.corpus.mallet.LDAModel"><code class="xref py py-class docutils literal"><span class="pre">LDAModel</span></code></a> object. You can
 inspect the model using the <code class="xref py py-func docutils literal"><span class="pre">LDAModel.print_topics()</span></code> method, which prints the most
 likely words from each topic. You can control the number of words returned for each topic
 using the <code class="docutils literal"><span class="pre">Nwords</span></code> parameter.</p>
@@ -347,7 +347,7 @@ topic model as a network of terms linked by their participation in particular to
 Tethne, we call this a <em>topic-coupling</em> network.</p>
 <div class="section" id="build-the-network">
 <h3><a class="toc-backref" href="#id14">Build the Network</a><a class="headerlink" href="#build-the-network" title="Permalink to this headline">¶</a></h3>
-<p>We can generate the topic-coupling network the <a class="reference internal" href="tethne.networks.papers.html#tethne.networks.papers.topic_coupling" title="tethne.networks.papers.topic_coupling"><code class="xref py py-func docutils literal"><span class="pre">topic_coupling()</span></code></a> method
+<p>We can generate the topic-coupling network the <a class="reference internal" href="tethne.networks.topics.html#tethne.networks.topics.topic_coupling" title="tethne.networks.topics.topic_coupling"><code class="xref py py-func docutils literal"><span class="pre">topic_coupling()</span></code></a> method
 from the <code class="xref py py-func docutils literal"><span class="pre">networks.features()</span></code> module.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tethne.networks</span> <span class="kn">import</span> <span class="n">features</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">MyGrap</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">topic_coupling</span><span class="p">(</span><span class="n">MyLDAModel</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.015</span><span class="p">)</span>
@@ -414,7 +414,7 @@ around 40 to just over 300 pt.</p>
 <div class="section" id="wrapping-up-looking-forward">
 <h2><a class="toc-backref" href="#id16">Wrapping up, Looking forward</a><a class="headerlink" href="#wrapping-up-looking-forward" title="Permalink to this headline">¶</a></h2>
 <p>To generate a network of papers connected by topics-in-common, try the
-<a class="reference internal" href="tethne.networks.papers.html#tethne.networks.papers.topic_coupling" title="tethne.networks.papers.topic_coupling"><code class="xref py py-func docutils literal"><span class="pre">networks.papers.topic_coupling()</span></code></a> method.</p>
+<code class="xref py py-func docutils literal"><span class="pre">networks.papers.topic_coupling()</span></code> method.</p>
 <p>Since Tethne is still under active development, methods for working with topic modeling
 and other corpus-analysis techniques are being added all the time, and existing functions
 will likely change as we find ways to streamline workflows. This tutorial will be updated

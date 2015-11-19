@@ -24,10 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
-    <link rel="top" title="tethne 1.0 documentation" href="index.html" >
-    <link rel="up" title="tethne.readers package" href="tethne.readers.html" >
-    <link rel="next" title="tethne.readers.scopus module" href="tethne.readers.scopus.html" >
-    <link rel="prev" title="tethne.readers package" href="tethne.readers.html" > 
+    <link rel="top" title="tethne 1.0 documentation" href="index.html" > 
   </head>
   <body>
 
@@ -51,9 +48,7 @@
         <li class="active"><a href="http://diging.github.io/tethne/">Tethne</a></li>
 	
         <li class="active"><a href="index.html">tethne 1.0 documentation</a></li>
-	
-          <li class="active"><a href="tethne.html" >tethne API</a></li>
-          <li class="active"><a href="tethne.readers.html" accesskey="U">tethne.readers package</a></li> 
+	 
     </ul>
               
               
@@ -65,14 +60,6 @@
       <li class="active">
         <a href="py-modindex.html" title="Python Module Index"
            >modules</a>
-      </li>
-      <li class="active">
-        <a href="tethne.readers.scopus.html" title="tethne.readers.scopus module"
-           accesskey="N">next</a>
-      </li>
-      <li class="active">
-        <a href="tethne.readers.html" title="tethne.readers package"
-           accesskey="P">previous</a>
       </li>
     </ul>
               
@@ -101,7 +88,7 @@
 <dl class="class">
 <dt id="tethne.readers.dfr.DfRParser">
 <em class="property">class </em><code class="descclassname">tethne.readers.dfr.</code><code class="descname">DfRParser</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/dfr.html#DfRParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.dfr.DfRParser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tethne.readers.base.XMLParser</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="tethne.readers.base.html#tethne.readers.base.XMLParser" title="tethne.readers.base.XMLParser"><code class="xref py py-class docutils literal"><span class="pre">tethne.readers.base.XMLParser</span></code></a></p>
 <dl class="attribute">
 <dt id="tethne.readers.dfr.DfRParser.entry_class">
 <code class="descname">entry_class</code><a class="headerlink" href="#tethne.readers.dfr.DfRParser.entry_class" title="Permalink to this definition">¶</a></dt>
@@ -156,19 +143,13 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Yields N-gram data from on-disk dataset, to make loading big datasets a bit
 more memory-friendly.</p>
-<p>Reusable, in the sense that <code class="xref py py-func docutils literal"><span class="pre">items()</span></code>, <code class="xref py py-func docutils literal"><span class="pre">iteritems()</span></code>,
+<p>Reusable, in the sense that <code class="xref py py-func docutils literal"><span class="pre">items()</span></code>, <code class="xref py py-func docutils literal"><span class="pre">items()</span></code>,
 <code class="xref py py-func docutils literal"><span class="pre">keys()</span></code>, and <code class="xref py py-func docutils literal"><span class="pre">values()</span></code> all return new <a class="reference internal" href="#tethne.readers.dfr.GramGenerator" title="tethne.readers.dfr.GramGenerator"><code class="xref py py-class docutils literal"><span class="pre">GramGenerator</span></code></a>
-instances with the same path. This allows a <a class="reference internal" href="#tethne.readers.dfr.GramGenerator" title="tethne.readers.dfr.GramGenerator"><code class="xref py py-class docutils literal"><span class="pre">GramGenerator</span></code></a> to 
+instances with the same path. This allows a <a class="reference internal" href="#tethne.readers.dfr.GramGenerator" title="tethne.readers.dfr.GramGenerator"><code class="xref py py-class docutils literal"><span class="pre">GramGenerator</span></code></a> to
 sneakily pass as an ngrams dict in most practical situations.</p>
 <dl class="method">
 <dt id="tethne.readers.dfr.GramGenerator.items">
 <code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/dfr.html#GramGenerator.items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.dfr.GramGenerator.items" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a <a class="reference internal" href="#tethne.readers.dfr.GramGenerator" title="tethne.readers.dfr.GramGenerator"><code class="xref py py-class docutils literal"><span class="pre">GramGenerator</span></code></a> that produces key,value tuples.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tethne.readers.dfr.GramGenerator.iteritems">
-<code class="descname">iteritems</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/dfr.html#GramGenerator.iteritems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.dfr.GramGenerator.iteritems" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#tethne.readers.dfr.GramGenerator" title="tethne.readers.dfr.GramGenerator"><code class="xref py py-class docutils literal"><span class="pre">GramGenerator</span></code></a> that produces key,value tuples.</p>
 </dd></dl>
 
@@ -213,7 +194,7 @@ sneakily pass as an ngrams dict in most practical situations.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>ngrams</strong> : <code class="xref py py-class docutils literal"><span class="pre">FeatureSet</span></code></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>ngrams</strong> : <a class="reference internal" href="tethne.classes.feature.html#tethne.classes.feature.FeatureSet" title="tethne.classes.feature.FeatureSet"><code class="xref py py-class docutils literal"><span class="pre">FeatureSet</span></code></a></p>
 </td>
 </tr>
 </tbody>
@@ -222,7 +203,7 @@ sneakily pass as an ngrams dict in most practical situations.</p>
 
 <dl class="function">
 <dt id="tethne.readers.dfr.read">
-<code class="descclassname">tethne.readers.dfr.</code><code class="descname">read</code><span class="sig-paren">(</span><em>path</em>, <em>corpus=True</em>, <em>index_by='doi'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/dfr.html#read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.dfr.read" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tethne.readers.dfr.</code><code class="descname">read</code><span class="sig-paren">(</span><em>path</em>, <em>corpus=True</em>, <em>index_by='doi'</em>, <em>load_ngrams=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/dfr.html#read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.dfr.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yields <a class="reference internal" href="tethne.classes.paper.html#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a> s from JSTOR DfR package.</p>
 <p>Each <a class="reference internal" href="tethne.classes.paper.html#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a> is tagged with an accession id for this
 read/conversion.</p>
@@ -299,12 +280,6 @@ stoplist.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo_round.png" alt="Logo">
             </a></p>
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tethne.readers.html"
-                        title="previous chapter">tethne.readers package</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tethne.readers.scopus.html"
-                        title="next chapter">tethne.readers.scopus module</a></p>
   <h3>This Page</h3>
   <div>
     <a href="_sources/tethne.readers.dfr.txt"

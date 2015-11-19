@@ -24,10 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
-    <link rel="top" title="tethne 1.0 documentation" href="index.html" >
-    <link rel="up" title="tethne.readers package" href="tethne.readers.html" >
-    <link rel="next" title="tethne.services package" href="tethne.services.html" >
-    <link rel="prev" title="tethne.readers.scopus module" href="tethne.readers.scopus.html" > 
+    <link rel="top" title="tethne 1.0 documentation" href="index.html" > 
   </head>
   <body>
 
@@ -51,9 +48,7 @@
         <li class="active"><a href="http://diging.github.io/tethne/">Tethne</a></li>
 	
         <li class="active"><a href="index.html">tethne 1.0 documentation</a></li>
-	
-          <li class="active"><a href="tethne.html" >tethne API</a></li>
-          <li class="active"><a href="tethne.readers.html" accesskey="U">tethne.readers package</a></li> 
+	 
     </ul>
               
               
@@ -65,14 +60,6 @@
       <li class="active">
         <a href="py-modindex.html" title="Python Module Index"
            >modules</a>
-      </li>
-      <li class="active">
-        <a href="tethne.services.html" title="tethne.services package"
-           accesskey="N">next</a>
-      </li>
-      <li class="active">
-        <a href="tethne.readers.scopus.html" title="tethne.readers.scopus module"
-           accesskey="P">previous</a>
       </li>
     </ul>
               
@@ -104,7 +91,7 @@ files.</p>
 <dl class="class">
 <dt id="tethne.readers.wos.WoSParser">
 <em class="property">class </em><code class="descclassname">tethne.readers.wos.</code><code class="descname">WoSParser</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tethne.readers.base.FTParser</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="tethne.readers.base.html#tethne.readers.base.FTParser" title="tethne.readers.base.FTParser"><code class="xref py py-class docutils literal"><span class="pre">tethne.readers.base.FTParser</span></code></a></p>
 <p>Parser for Web of Science field-tagged data.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tethne.readers.wos</span> <span class="kn">import</span> <span class="n">WoSParser</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span> <span class="o">=</span> <span class="n">WoSParser</span><span class="p">(</span><span class="s">&quot;/path/to/download.txt&quot;</span><span class="p">)</span>
@@ -114,17 +101,22 @@ files.</p>
 <dl class="attribute">
 <dt id="tethne.readers.wos.WoSParser.concat_fields">
 <code class="descname">concat_fields</code><em class="property"> = ['abstract', 'keywords', 'funding', 'title', 'references', 'journal']</em><a class="headerlink" href="#tethne.readers.wos.WoSParser.concat_fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Fields that span multiple lines that should be concatenated into a single
+value.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="tethne.readers.wos.WoSParser.end_tag">
 <code class="descname">end_tag</code><em class="property"> = 'ER'</em><a class="headerlink" href="#tethne.readers.wos.WoSParser.end_tag" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Field-tag used to mark the end of a record.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="tethne.readers.wos.WoSParser.entry_class">
 <code class="descname">entry_class</code><a class="headerlink" href="#tethne.readers.wos.WoSParser.entry_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></p>
+<dd><p>The class that should be used to represent a single bibliographic record.
+This can be changed to support more sophisticated data models.</p>
+<p>alias of <code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></p>
 </dd></dl>
 
 <dl class="method">
@@ -140,75 +132,85 @@ files.</p>
 <dl class="method">
 <dt id="tethne.readers.wos.WoSParser.handle_CR">
 <code class="descname">handle_CR</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.handle_CR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.handle_CR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tethne.readers.wos.WoSParser.handle_IS">
-<code class="descname">handle_IS</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.handle_IS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.handle_IS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Parses cited references.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tethne.readers.wos.WoSParser.handle_PY">
 <code class="descname">handle_PY</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.handle_PY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.handle_PY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>WoS publication years are cast to integers.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tethne.readers.wos.WoSParser.handle_TI">
 <code class="descname">handle_TI</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.handle_TI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.handle_TI" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Convert article titles to Title Case.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tethne.readers.wos.WoSParser.handle_VL">
 <code class="descname">handle_VL</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.handle_VL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.handle_VL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Volume should be a unicode string, even if it looks like an integer.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tethne.readers.wos.WoSParser.parse_author">
 <code class="descname">parse_author</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.parse_author"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.parse_author" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Attempts to split an author name into last and first parts.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tethne.readers.wos.WoSParser.postprocess_authorKeywords">
 <code class="descname">postprocess_authorKeywords</code><span class="sig-paren">(</span><em>entry</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.postprocess_authorKeywords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.postprocess_authorKeywords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Author Keywords are usually semicolon-delimited.</p>
+<dd><p>Parse author keywords.</p>
+<p>Author keywords are usually semicolon-delimited.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tethne.readers.wos.WoSParser.postprocess_authors_full">
 <code class="descname">postprocess_authors_full</code><span class="sig-paren">(</span><em>entry</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.postprocess_authors_full"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.postprocess_authors_full" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>If only a single author was found, ensure that <code class="docutils literal"><span class="pre">authors_full</span></code> is
+nonetheless a list.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tethne.readers.wos.WoSParser.postprocess_authors_init">
 <code class="descname">postprocess_authors_init</code><span class="sig-paren">(</span><em>entry</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.postprocess_authors_init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.postprocess_authors_init" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>If only a single author was found, ensure that <code class="docutils literal"><span class="pre">authors_init</span></code> is
+nonetheless a list.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tethne.readers.wos.WoSParser.postprocess_citedReferences">
 <code class="descname">postprocess_citedReferences</code><span class="sig-paren">(</span><em>entry</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.postprocess_citedReferences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.postprocess_citedReferences" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>If only a single cited reference was found, ensure that
+<code class="docutils literal"><span class="pre">citedReferences</span></code> is nonetheless a list.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="tethne.readers.wos.WoSParser.postprocess_funding">
 <code class="descname">postprocess_funding</code><span class="sig-paren">(</span><em>entry</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.postprocess_funding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.postprocess_funding" title="Permalink to this definition">¶</a></dt>
-<dd><p>Separate funding agency from grant numbers.</p>
+<dd><p>Separates funding agency from grant numbers.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tethne.readers.wos.WoSParser.postprocess_keywordsPlus">
 <code class="descname">postprocess_keywordsPlus</code><span class="sig-paren">(</span><em>entry</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/wos.html#WoSParser.postprocess_keywordsPlus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.wos.WoSParser.postprocess_keywordsPlus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keyword Plus keywords are usually semicolon-delimited.</p>
+<dd><p>Parse WoS &#8220;Keyword Plus&#8221; keywords.</p>
+<p>Keyword Plus keywords are usually semicolon-delimited.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="tethne.readers.wos.WoSParser.start_tag">
 <code class="descname">start_tag</code><em class="property"> = 'PT'</em><a class="headerlink" href="#tethne.readers.wos.WoSParser.start_tag" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Field-tag used to mark the start of a record.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="tethne.readers.wos.WoSParser.tags">
 <code class="descname">tags</code><em class="property"> = {'EM': 'emailAddress', 'CL': 'conferenceLocation', 'AB': 'abstract', 'FU': 'funding', 'AF': 'authors_full', 'ED': 'editors', 'IS': 'issue', 'DE': 'keywordsPlus', 'VL': 'volume', 'CY': 'conferenceDate', 'AU': 'authors_init', 'HO': 'conferenceHost', 'BS': 'bookSeriesSubtitle', 'UT': 'wosid', 'CR': 'citedReferences', 'DT': 'documentType', 'SP': 'conferenceSponsors', 'BN': 'ISSN', 'ID': 'authorKeywords', 'CT': 'conferenceTitle', 'PU': 'publisher', 'PI': 'publisherCity', 'RP': 'reprintAddress', 'PA': 'publisherAddress', 'LA': 'language', 'TC': 'timesCited', 'PY': 'date', 'EP': 'pageEnd', 'DI': 'doi', 'SO': 'journal', 'SN': 'ISSN', 'TI': 'title', 'SC': 'subject', 'BP': 'pageStart', 'C1': 'authorAddress', 'NR': 'citationCount', 'CA': 'groupAuthors', 'SE': 'bookSeriesTitle', 'JI': 'isoSource'}</em><a class="headerlink" href="#tethne.readers.wos.WoSParser.tags" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Maps field-tags onto field names.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -269,12 +271,6 @@ only a list of <a class="reference internal" href="tethne.classes.paper.html#tet
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo_round.png" alt="Logo">
             </a></p>
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tethne.readers.scopus.html"
-                        title="previous chapter">tethne.readers.scopus module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tethne.services.html"
-                        title="next chapter">tethne.services package</a></p>
   <h3>This Page</h3>
   <div>
     <a href="_sources/tethne.readers.wos.txt"

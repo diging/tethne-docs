@@ -24,10 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
-    <link rel="top" title="tethne 1.0 documentation" href="index.html" >
-    <link rel="up" title="tethne.networks package" href="tethne.networks.html" >
-    <link rel="next" title="tethne.networks.topics module" href="tethne.networks.topics.html" >
-    <link rel="prev" title="tethne.networks.helpers module" href="tethne.networks.helpers.html" > 
+    <link rel="top" title="tethne 1.0 documentation" href="index.html" > 
   </head>
   <body>
 
@@ -51,9 +48,7 @@
         <li class="active"><a href="http://diging.github.io/tethne/">Tethne</a></li>
 	
         <li class="active"><a href="index.html">tethne 1.0 documentation</a></li>
-	
-          <li class="active"><a href="tethne.html" >tethne API</a></li>
-          <li class="active"><a href="tethne.networks.html" accesskey="U">tethne.networks package</a></li> 
+	 
     </ul>
               
               
@@ -65,14 +60,6 @@
       <li class="active">
         <a href="py-modindex.html" title="Python Module Index"
            >modules</a>
-      </li>
-      <li class="active">
-        <a href="tethne.networks.topics.html" title="tethne.networks.topics module"
-           accesskey="N">next</a>
-      </li>
-      <li class="active">
-        <a href="tethne.networks.helpers.html" title="tethne.networks.helpers module"
-           accesskey="P">previous</a>
       </li>
     </ul>
               
@@ -108,19 +95,19 @@
 <tr class="row-even"><td><a class="reference internal" href="#tethne.networks.papers.direct_citation" title="tethne.networks.papers.direct_citation"><code class="xref py py-obj docutils literal"><span class="pre">direct_citation</span></code></a></td>
 <td>A directed paper-citation network.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#tethne.networks.papers.topic_coupling" title="tethne.networks.papers.topic_coupling"><code class="xref py py-obj docutils literal"><span class="pre">topic_coupling</span></code></a></td>
-<td>Two papers are coupled if they both contain a shared topic above threshold.</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">topic_coupling</span></code></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <dl class="function">
 <dt id="tethne.networks.papers.author_coupling">
-<code class="descclassname">tethne.networks.papers.</code><code class="descname">author_coupling</code><span class="sig-paren">(</span><em>corpus</em>, <em>min_weight=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/papers.html#author_coupling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.papers.author_coupling" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tethne.networks.papers.</code><code class="descname">author_coupling</code><span class="sig-paren">(</span><em>corpus</em>, <em>min_weight=1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/papers.html#author_coupling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.papers.author_coupling" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="tethne.networks.papers.bibliographic_coupling">
-<code class="descclassname">tethne.networks.papers.</code><code class="descname">bibliographic_coupling</code><span class="sig-paren">(</span><em>corpus</em>, <em>min_weight=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/papers.html#bibliographic_coupling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.papers.bibliographic_coupling" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tethne.networks.papers.</code><code class="descname">bibliographic_coupling</code><span class="sig-paren">(</span><em>corpus</em>, <em>min_weight=1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/papers.html#bibliographic_coupling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.papers.bibliographic_coupling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a bibliographic coupling network.</p>
 <p>Two papers are <strong>bibliographically coupled</strong> when they both cite the same,
 third, paper.</p>
@@ -128,7 +115,7 @@ third, paper.</p>
 
 <dl class="function">
 <dt id="tethne.networks.papers.cocitation">
-<code class="descclassname">tethne.networks.papers.</code><code class="descname">cocitation</code><span class="sig-paren">(</span><em>corpus, min_weight=1, edge_attrs=['ayjid', 'date']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/papers.html#cocitation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.papers.cocitation" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tethne.networks.papers.</code><code class="descname">cocitation</code><span class="sig-paren">(</span><em>corpus, min_weight=1, edge_attrs=['ayjid', 'date'], **kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/papers.html#cocitation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.papers.cocitation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a cocitation network.</p>
 <p>A <strong>cocitation network</strong> is a network in which vertices are papers, and
 edges indicate that two papers were cited by the same third paper.
@@ -140,7 +127,7 @@ about the theory behind it
 
 <dl class="function">
 <dt id="tethne.networks.papers.direct_citation">
-<code class="descclassname">tethne.networks.papers.</code><code class="descname">direct_citation</code><span class="sig-paren">(</span><em>corpus</em>, <em>min_weight=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/papers.html#direct_citation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.papers.direct_citation" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tethne.networks.papers.</code><code class="descname">direct_citation</code><span class="sig-paren">(</span><em>corpus</em>, <em>min_weight=1</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/papers.html#direct_citation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.papers.direct_citation" title="Permalink to this definition">¶</a></dt>
 <dd><p>A directed paper-citation network.</p>
 <p>Direct-citation graphs are <a href="#id1"><span class="problematic" id="id2">`directed acyclic graphs`__</span></a> in which vertices
 are papers, and each (directed) edge represents a citation of the target
@@ -148,12 +135,6 @@ paper by the source paper. The <a class="reference internal" href="#tethne.netwo
 method generates both a global citation graph, which includes all cited and
 citing papers, and an internal citation graph that describes only citations
 among papers in the original dataset.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="tethne.networks.papers.topic_coupling">
-<code class="descclassname">tethne.networks.papers.</code><code class="descname">topic_coupling</code><span class="sig-paren">(</span><em>corpus</em>, <em>min_weight=0.7</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/papers.html#topic_coupling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.papers.topic_coupling" title="Permalink to this definition">¶</a></dt>
-<dd><p>Two papers are coupled if they both contain a shared topic above threshold.</p>
 </dd></dl>
 
 </div>
@@ -167,12 +148,6 @@ among papers in the original dataset.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo_round.png" alt="Logo">
             </a></p>
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tethne.networks.helpers.html"
-                        title="previous chapter">tethne.networks.helpers module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tethne.networks.topics.html"
-                        title="next chapter">tethne.networks.topics module</a></p>
   <h3>This Page</h3>
   <div>
     <a href="_sources/tethne.networks.papers.txt"

@@ -279,3 +279,30 @@ For an introduction to collecting bibliographic metadata and full-text
 content with Zotero, see `this video tutorial <https://vimeo.com/84316405>`_.
 For a text version, see `this tutorial
 <https://github.com/erickpeirson/methods/blob/master/1-collecting-data-with-zotero.md>`_.
+
+In order to work with your Zotero collection in Tethne, you will first need to
+export it in Zotero
+`RDF <https://en.wikipedia.org/wiki/Resource_Description_Framework>`_ format.
+
+.. Note: This format isn't strictly valid RDF (puzzlingly), but the necessary
+         corrections are made internally to parse it.
+
+To export a collection:
+
+1. Select the collection from your Library.
+2. Right-click on the collection, and select "Export Collection". A small modal
+   dialog should appear.
+3. Select "Zotero RDF" from the Format field.
+4. If you want to parse full-text content (e.g. from attached PDF files), check
+   the "Export Files" option.
+5. Click OK. An Export (save) dialog should appear.
+6. Navigate to the place on your filesystem to which you wish to export your
+   collection. Put it someplace easy to find, since you'll need to know the path
+   to your export later on.
+7. Give your export a name in the "Save As" field.
+8. Click OK.
+
+This will create a new directory with the name that you specified in step ``7``.
+Inside, you should find a file with the same name, and a ``.rdf`` extension. If
+you opted to include attached files (step ``4``), you should also see a folder
+called "files".

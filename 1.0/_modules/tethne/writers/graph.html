@@ -95,6 +95,12 @@
 
 <span class="kn">from</span> <span class="nn">xml.etree.cElementTree</span> <span class="kn">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">ElementTree</span><span class="p">,</span> <span class="n">tostring</span>
 
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">PYTHON_3</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span>
+<span class="k">if</span> <span class="n">PYTHON_3</span><span class="p">:</span>
+    <span class="nb">unicode</span> <span class="o">=</span> <span class="nb">str</span>
+
+
 <div class="viewcode-block" id="write_csv"><a class="viewcode-back" href="../../../tethne.writers.graph.html#tethne.writers.graph.write_csv">[docs]</a><span class="k">def</span> <span class="nf">write_csv</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Write ``graph`` as tables of nodes (``prefix-nodes.csv``) and edges</span>
@@ -116,28 +122,28 @@
         <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s">&#39;node&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">node_headers</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">attrs</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
             <span class="n">values</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">repeat</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">node_headers</span><span class="p">)),</span> <span class="n">node_headers</span><span class="p">)</span>
-            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">_recast_value</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="o">+</span> <span class="n">values</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">_recast_value</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
 
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="s">&#39;_edges.csv&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s">&#39;source&#39;</span><span class="p">,</span> <span class="s">&#39;target&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">edge_headers</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">attrs</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
             <span class="n">values</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">repeat</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">edge_headers</span><span class="p">)),</span> <span class="n">edge_headers</span><span class="p">)</span>
-            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">_recast_value</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">_recast_value</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span> <span class="o">+</span> <span class="n">values</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">_recast_value</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">_recast_value</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
 
 </div>
 <div class="viewcode-block" id="to_sif"><a class="viewcode-back" href="../../../tethne.writers.graph.html#tethne.writers.graph.to_sif">[docs]</a><span class="k">def</span> <span class="nf">to_sif</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">output_path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates Simple Interaction Format output file from provided graph.</span>
 
-<span class="sd">    The SIF specification is described </span>
+<span class="sd">    The SIF specification is described</span>
 <span class="sd">    `here &lt;http://wiki.cytoscape.org/Cytoscape_User_Manual/Network_Formats&gt;`_.</span>
 
 <span class="sd">    :func:`.to_sif` will generate a .sif file describing the network, and a few</span>
 <span class="sd">    .eda and .noa files containing edge and node attributes, respectively. These</span>
 <span class="sd">    are equivalent to tab-delimited tables, and can be imported as such in</span>
 <span class="sd">    Cytoscape 3.0.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    graph : networkx.Graph</span>
@@ -150,9 +156,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;Removed in 0.8. Use write_csv instead.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
-    
+
     <span class="n">graph</span> <span class="o">=</span> <span class="n">_strip_list_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
-    
+
     <span class="k">if</span> <span class="n">output_path</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s">&quot;.sif&quot;</span><span class="p">:</span>
         <span class="n">output_path</span> <span class="o">=</span> <span class="n">output_path</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
 
@@ -168,21 +174,21 @@
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
             <span class="n">node_name</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">node_attribs</span> <span class="o">=</span> <span class="n">node</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">node_attribs</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">node_attribs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="c"># generate a node attribute file for each node attribute</span>
                 <span class="k">if</span> <span class="n">node</span> <span class="o">==</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                     <span class="c"># first node, overwrite file</span>
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&quot;_&quot;</span> <span class="o">+</span> <span class="n">key</span> <span class="o">+</span> <span class="s">&quot;.noa&quot;</span><span class="p">,</span>
                               <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">node_name</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="s">&quot;_&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; = &quot;</span> <span class="o">+</span>
-                                <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">node_name</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="s">&quot;_&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; = &quot;</span> <span class="o">+</span>
+                                <span class="nb">unicode</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c"># not first, append file</span>
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&quot;_&quot;</span> <span class="o">+</span> <span class="n">key</span> <span class="o">+</span> <span class="s">&quot;.noa&quot;</span><span class="p">,</span>
                               <span class="s">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">node_name</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="s">&quot;_&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; = &quot;</span> <span class="o">+</span>
-                                <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">node_name</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="s">&quot;_&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; = &quot;</span> <span class="o">+</span>
+                                <span class="nb">unicode</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c"># write an empty graph to a .sif file (just its nodes)</span>
@@ -191,11 +197,11 @@
                 <span class="k">if</span> <span class="n">node</span> <span class="o">==</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                     <span class="c"># first node, overwrite file</span>
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&quot;.sif&quot;</span><span class="p">,</span><span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">node_name</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="s">&quot;_&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">node_name</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="s">&quot;_&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c"># not first, append file</span>
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&quot;.sif&quot;</span><span class="p">,</span><span class="s">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">node_name</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="s">&quot;_&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">node_name</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="s">&quot;_&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="c"># write the graph to a .sif file as well as other edge</span>
@@ -212,23 +218,23 @@
 
                 <span class="c"># create edge attribute files</span>
                 <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">edge_attribs</span><span class="p">:</span>
-                    <span class="n">str_attrib</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span>
+                    <span class="n">str_attrib</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span>
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="n">str_attrib</span> <span class="o">+</span> <span class="s">&quot;.eda&quot;</span><span class="p">,</span><span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
                 <span class="c"># add data to eda files and write sif file</span>
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&#39;.sif&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
-                        <span class="n">node1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;_&quot;</span><span class="p">)</span>
-                        <span class="n">node2</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;_&quot;</span><span class="p">)</span>
-                        <span class="n">intr_type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;_&quot;</span><span class="p">)</span>
+                        <span class="n">node1</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;_&quot;</span><span class="p">)</span>
+                        <span class="n">node2</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;_&quot;</span><span class="p">)</span>
+                        <span class="n">intr_type</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;_&quot;</span><span class="p">)</span>
                         <span class="n">sif_line</span> <span class="o">=</span> <span class="n">node1</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">intr_type</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">node2</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sif_line</span><span class="p">)</span>
 
-                        <span class="k">for</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">edge</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+                        <span class="k">for</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">edge</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                             <span class="n">eda_line</span> <span class="o">=</span> <span class="p">(</span><span class="n">node1</span> <span class="o">+</span> <span class="s">&#39; (&#39;</span> <span class="o">+</span> <span class="n">intr_type</span> <span class="o">+</span> <span class="s">&#39;) &#39;</span> <span class="o">+</span>
-                                        <span class="n">node2</span> <span class="o">+</span> <span class="s">&#39; = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-                            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.eda&#39;</span><span class="p">,</span>
+                                        <span class="n">node2</span> <span class="o">+</span> <span class="s">&#39; = &#39;</span> <span class="o">+</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+                            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.eda&#39;</span><span class="p">,</span>
                                       <span class="s">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span>
                                 <span class="n">g</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">eda_line</span><span class="p">)</span>
 
@@ -242,33 +248,33 @@
 
                 <span class="c"># create edge attribute files</span>
                 <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">edge_attribs</span><span class="p">:</span>
-                    <span class="n">str_attrib</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span>
+                    <span class="n">str_attrib</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span>
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="n">str_attrib</span> <span class="o">+</span> <span class="s">&quot;.eda&quot;</span><span class="p">,</span><span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
                 <span class="c"># add data to eda files and write sif file</span>
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&#39;.sif&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
-                        <span class="n">node1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;_&quot;</span><span class="p">)</span>
-                        <span class="n">node2</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;_&quot;</span><span class="p">)</span>
+                        <span class="n">node1</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;_&quot;</span><span class="p">)</span>
+                        <span class="n">node2</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;_&quot;</span><span class="p">)</span>
                         <span class="n">intr_type</span> <span class="o">=</span> <span class="s">&#39;rel&#39;</span>
                         <span class="n">sif_line</span> <span class="o">=</span> <span class="n">node1</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">intr_type</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">node2</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sif_line</span><span class="p">)</span>
 
-                        <span class="k">for</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">edge</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+                        <span class="k">for</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">edge</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                             <span class="n">eda_line</span> <span class="o">=</span> <span class="p">(</span><span class="n">node1</span> <span class="o">+</span> <span class="s">&#39; (&#39;</span> <span class="o">+</span> <span class="n">intr_type</span> <span class="o">+</span> <span class="s">&#39;) &#39;</span> <span class="o">+</span>
-                                        <span class="n">node2</span> <span class="o">+</span> <span class="s">&#39; = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-                            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span> <span class="o">+</span>
+                                        <span class="n">node2</span> <span class="o">+</span> <span class="s">&#39; = &#39;</span> <span class="o">+</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+                            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_path</span> <span class="o">+</span> <span class="s">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">attrib</span><span class="p">)</span> <span class="o">+</span>
                                       <span class="s">&#39;.eda&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span>
                                 <span class="n">g</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">eda_line</span><span class="p">)</span>
 
 </div>
 <div class="viewcode-block" id="to_gexf"><a class="viewcode-back" href="../../../tethne.writers.graph.html#tethne.writers.graph.to_gexf">[docs]</a><span class="k">def</span> <span class="nf">to_gexf</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">output_path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Writes graph to `GEXF &lt;http://gexf.net&gt;`_.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Uses the NetworkX method</span>
 <span class="sd">    `write_gexf &lt;http://networkx.lanl.gov/reference/generated/networkx.readwrite.gexf.write_gexf.html&gt;`_.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    graph : networkx.Graph</span>
@@ -281,14 +287,14 @@
     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;Removed in 0.8.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
 
     <span class="n">graph</span> <span class="o">=</span> <span class="n">_strip_list_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
-    
+
     <span class="n">nx</span><span class="o">.</span><span class="n">write_gexf</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">output_path</span> <span class="o">+</span> <span class="s">&quot;.gexf&quot;</span><span class="p">)</span>
 
 </div>
 <div class="viewcode-block" id="write_graphml"><a class="viewcode-back" href="../../../tethne.writers.graph.html#tethne.writers.graph.write_graphml">[docs]</a><span class="k">def</span> <span class="nf">write_graphml</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">prettyprint</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Writes graph to `GraphML &lt;http://graphml.graphdrawing.org/&gt;`_.</span>
-<span class="sd">    </span>
-<span class="sd">    Uses the NetworkX method </span>
+
+<span class="sd">    Uses the NetworkX method</span>
 <span class="sd">    `write_graphml &lt;http://networkx.lanl.gov/reference/generated/networkx.readwrite.graphml.write_graphml.html&gt;`_.</span>
 
 <span class="sd">    Parameters</span>
@@ -301,7 +307,7 @@
 <span class="sd">        ./graphFolder/graphFile.graphml.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">graph</span> <span class="o">=</span> <span class="n">_strip_list_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
-    
+
     <span class="n">writer</span> <span class="o">=</span> <span class="n">TethneGraphMLWriter</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="n">prettyprint</span><span class="o">=</span><span class="n">prettyprint</span><span class="p">)</span>
     <span class="n">writer</span><span class="o">.</span><span class="n">add_graph_element</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
     <span class="n">writer</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">))</span>
@@ -352,7 +358,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">add_attributes</span><span class="p">(</span><span class="s">&quot;node&quot;</span><span class="p">,</span> <span class="n">node_element</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
             <span class="n">graph_element</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_element</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="TethneGraphMLWriter.add_edges"><a class="viewcode-back" href="../../../tethne.writers.graph.html#tethne.writers.graph.TethneGraphMLWriter.add_edges">[docs]</a>    <span class="k">def</span> <span class="nf">add_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">graph_element</span><span class="p">):</span>        
+<div class="viewcode-block" id="TethneGraphMLWriter.add_edges"><a class="viewcode-back" href="../../../tethne.writers.graph.html#tethne.writers.graph.TethneGraphMLWriter.add_edges">[docs]</a>    <span class="k">def</span> <span class="nf">add_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">graph_element</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">G</span><span class="o">.</span><span class="n">is_multigraph</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">key</span><span class="p">,</span><span class="n">data</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges_iter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
                 <span class="n">edge_element</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="s">&quot;edge&quot;</span><span class="p">,</span><span class="n">source</span><span class="o">=</span><span class="n">_recast_value</span><span class="p">(</span><span class="n">u</span><span class="p">),</span>
@@ -361,7 +367,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_attributes</span><span class="p">(</span><span class="s">&quot;edge&quot;</span><span class="p">,</span> <span class="n">edge_element</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_attributes</span><span class="p">(</span><span class="s">&quot;edge&quot;</span><span class="p">,</span> <span class="n">edge_element</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;key&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">},</span>
                                     <span class="n">default</span><span class="p">)</span>
-                <span class="n">graph_element</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge_element</span><span class="p">)</span>                
+                <span class="n">graph_element</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge_element</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">data</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges_iter</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
                 <span class="n">edge_element</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="s">&quot;edge&quot;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">_recast_value</span><span class="p">(</span><span class="n">u</span><span class="p">),</span>
@@ -381,22 +387,22 @@
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s">&quot;_edges.csv&quot;</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">edges</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)</span>
-        
+
         <span class="c"># Header.</span>
         <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s">&#39;source&#39;</span><span class="p">,</span><span class="s">&#39;target&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()])</span>
-        
+
         <span class="c"># Values.</span>
         <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span> <span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="p">]</span> <span class="p">)</span>
-            
+
     <span class="c"># Node attributes.</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s">&quot;_nodes.csv&quot;</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">nodes</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)</span>
-        
+
         <span class="c"># Header.</span>
         <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s">&#39;node&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">])</span>
-        
+
         <span class="c"># Values.</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span> <span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">]</span> <span class="o">+</span> <span class="p">[</span> <span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="p">])</span>
@@ -404,20 +410,20 @@
 </div>
 <span class="k">def</span> <span class="nf">_strip_list_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
-                <span class="n">G</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
-                <span class="n">G</span><span class="o">.</span><span class="n">edge</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">edge</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">G</span>
 
 
 <span class="k">def</span> <span class="nf">_recast_value</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s">&#39;__iter__&#39;</span><span class="p">):</span>
         <span class="k">return</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
 </pre></div>

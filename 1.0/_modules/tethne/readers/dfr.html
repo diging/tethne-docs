@@ -91,11 +91,17 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 <span class="kn">from</span> <span class="nn">tethne</span> <span class="kn">import</span> <span class="n">Paper</span><span class="p">,</span> <span class="n">Corpus</span><span class="p">,</span> <span class="n">Feature</span><span class="p">,</span> <span class="n">FeatureSet</span>
-<span class="kn">from</span> <span class="nn">tethne.utilities</span> <span class="kn">import</span> <span class="n">dict_from_node</span><span class="p">,</span> <span class="n">strip_non_ascii</span>
+<span class="kn">from</span> <span class="nn">tethne.utilities</span> <span class="kn">import</span> <span class="n">dict_from_node</span><span class="p">,</span> <span class="n">strip_non_ascii</span><span class="p">,</span> <span class="n">number</span>
 <span class="kn">from</span> <span class="nn">tethne.readers.base</span> <span class="kn">import</span> <span class="n">XMLParser</span>
 <span class="kn">import</span> <span class="nn">iso8601</span>
 
 <span class="kn">from</span> <span class="nn">unidecode</span> <span class="kn">import</span> <span class="n">unidecode</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">PYTHON_3</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span>
+<span class="k">if</span> <span class="n">PYTHON_3</span><span class="p">:</span>
+    <span class="nb">unicode</span> <span class="o">=</span> <span class="nb">str</span>
+
 
 <div class="viewcode-block" id="DfRParser"><a class="viewcode-back" href="../../../tethne.readers.dfr.html#tethne.readers.dfr.DfRParser">[docs]</a><span class="k">class</span> <span class="nc">DfRParser</span><span class="p">(</span><span class="n">XMLParser</span><span class="p">):</span>
     <span class="n">entry_class</span> <span class="o">=</span> <span class="n">Paper</span>
@@ -153,27 +159,26 @@
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">authors_full</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
             <span class="n">entry</span><span class="o">.</span><span class="n">authors_full</span> <span class="o">=</span> <span class="p">[</span><span class="n">entry</span><span class="o">.</span><span class="n">authors_full</span><span class="p">]</span>
 
-
 </div></div>
 <div class="viewcode-block" id="GramGenerator"><a class="viewcode-back" href="../../../tethne.readers.dfr.html#tethne.readers.dfr.GramGenerator">[docs]</a><span class="k">class</span> <span class="nc">GramGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Yields N-gram data from on-disk dataset, to make loading big datasets a bit</span>
 <span class="sd">    more memory-friendly.</span>
-<span class="sd">    </span>
-<span class="sd">    Reusable, in the sense that :func:`.items`\, :func:`.iteritems`\,</span>
+
+<span class="sd">    Reusable, in the sense that :func:`.items`\, :func:`.items`\,</span>
 <span class="sd">    :func:`.keys`\, and :func:`.values` all return new :class:`.GramGenerator`</span>
-<span class="sd">    instances with the same path. This allows a :class:`.GramGenerator` to </span>
+<span class="sd">    instances with the same path. This allows a :class:`.GramGenerator` to</span>
 <span class="sd">    sneakily pass as an ngrams dict in most practical situations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">elem</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">ignore_hash</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        </span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        path : str</span>
-<span class="sd">            Path to unzipped JSTOR DfR folder containing N-grams (e.g. </span>
-<span class="sd">            &#39;bigrams&#39;). </span>
+<span class="sd">            Path to unzipped JSTOR DfR folder containing N-grams (e.g.</span>
+<span class="sd">            &#39;bigrams&#39;).</span>
 <span class="sd">        elem : str</span>
 <span class="sd">            Element in DfR dataset containing data of interest. E.g. &#39;bigrams&#39;.</span>
 <span class="sd">        values : bool</span>
@@ -181,29 +186,37 @@
 <span class="sd">            (key,value) tuples.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;No such file or directory&#39;</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">elem</span> <span class="o">=</span> <span class="n">elem</span>
+        <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;s&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">elem_xml</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">elem_xml</span> <span class="o">=</span> <span class="n">elem</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">ignore_hash</span> <span class="o">=</span> <span class="n">ignore_hash</span>
-                
+
         <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">elem</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span> <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;XML&#39;</span> <span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="o">=</span> <span class="n">values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">K</span> <span class="o">=</span> <span class="n">keys</span>
-        
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">K</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;values and keys cannot both be true.&#39;</span><span class="p">)</span>
-    
+
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
-    
+
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span>
-    
+
     <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
-    
+
 <div class="viewcode-block" id="GramGenerator.next"><a class="viewcode-back" href="../../../tethne.readers.dfr.html#tethne.readers.dfr.GramGenerator.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">i</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">:</span>
             <span class="n">cur</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">i</span><span class="p">)</span>
@@ -211,38 +224,38 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">cur</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">StopIteration</span><span class="p">()</span>
-            </div>
+</div>
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a :class:`GramGenerator` that produces key,value tuples.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">GramGenerator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">elem</span><span class="p">,</span>
+                             <span class="n">ignore_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore_hash</span><span class="p">)</span>
+
 <div class="viewcode-block" id="GramGenerator.items"><a class="viewcode-back" href="../../../tethne.readers.dfr.html#tethne.readers.dfr.GramGenerator.items">[docs]</a>    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a :class:`GramGenerator` that produces key,value tuples.</span>
-<span class="sd">        &quot;&quot;&quot;</span>    
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">GramGenerator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">elem</span><span class="p">,</span>
                              <span class="n">ignore_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore_hash</span><span class="p">)</span>
-    </div>
-<div class="viewcode-block" id="GramGenerator.iteritems"><a class="viewcode-back" href="../../../tethne.readers.dfr.html#tethne.readers.dfr.GramGenerator.iteritems">[docs]</a>    <span class="k">def</span> <span class="nf">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a :class:`GramGenerator` that produces key,value tuples.</span>
-<span class="sd">        &quot;&quot;&quot;</span>    
-        <span class="k">return</span> <span class="n">GramGenerator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">elem</span><span class="p">,</span>
-                             <span class="n">ignore_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore_hash</span><span class="p">)</span>
-    </div>
+</div>
 <div class="viewcode-block" id="GramGenerator.values"><a class="viewcode-back" href="../../../tethne.readers.dfr.html#tethne.readers.dfr.GramGenerator.values">[docs]</a>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a :class:`GramGenerator` that produces only values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">GramGenerator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">elem</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+        <span class="k">return</span> <span class="n">GramGenerator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">elem</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                              <span class="n">ignore_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore_hash</span><span class="p">)</span>
-                                                   </div>
+</div>
 <div class="viewcode-block" id="GramGenerator.keys"><a class="viewcode-back" href="../../../tethne.readers.dfr.html#tethne.readers.dfr.GramGenerator.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a :class:`GramGenerator` that produces only keys.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">GramGenerator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">elem</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+        <span class="k">return</span> <span class="n">GramGenerator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">elem</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                              <span class="n">ignore_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ignore_hash</span><span class="p">)</span>
-                                                   </div>
+</div>
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-    
+
     <span class="k">def</span> <span class="nf">_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieve data for the ith file in the dataset.</span>
@@ -257,19 +270,24 @@
             <span class="k">return</span> <span class="n">doi</span>
 
         <span class="n">grams</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">gram</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elem</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">gram</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elem_xml</span><span class="p">):</span>
             <span class="n">text</span> <span class="o">=</span> <span class="n">unidecode</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">gram</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
             <span class="k">if</span> <span class="p">(</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ignore_hash</span> <span class="ow">or</span> <span class="s">&#39;#&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="p">):</span>
-                <span class="n">c</span> <span class="o">=</span> <span class="p">(</span> <span class="n">text</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">gram</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s">&#39;weight&#39;</span><span class="p">])</span> <span class="p">)</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="p">(</span> <span class="n">text</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="n">gram</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s">&#39;weight&#39;</span><span class="p">])</span> <span class="p">)</span>
                 <span class="n">grams</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-        
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">:</span>  <span class="c"># Values only.</span>
             <span class="k">return</span> <span class="n">grams</span>
 
         <span class="k">return</span> <span class="n">doi</span><span class="p">,</span> <span class="n">grams</span>   <span class="c"># Default behavior.</span>
-
 </div>
-<div class="viewcode-block" id="read"><a class="viewcode-back" href="../../../tethne.readers.dfr.html#tethne.readers.dfr.read">[docs]</a><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">corpus</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">index_by</span><span class="o">=</span><span class="s">&#39;doi&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_get_citation_filename</span><span class="p">(</span><span class="n">basepath</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;citations.xml&quot;</span><span class="p">,</span> <span class="s">&quot;citations.XML&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">basepath</span><span class="p">,</span> <span class="n">fname</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">fname</span>
+
+
+<div class="viewcode-block" id="read"><a class="viewcode-back" href="../../../tethne.readers.dfr.html#tethne.readers.dfr.read">[docs]</a><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">corpus</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">index_by</span><span class="o">=</span><span class="s">&#39;doi&#39;</span><span class="p">,</span> <span class="n">load_ngrams</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Yields :class:`.Paper` s from JSTOR DfR package.</span>
 
@@ -294,21 +312,55 @@
 <span class="sd">       &gt;&gt;&gt; from tethne.readers import dfr</span>
 <span class="sd">       &gt;&gt;&gt; papers = dfr.read(&quot;/Path/to/DfR&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">citationfname</span> <span class="o">=</span> <span class="s">&quot;citations.xml&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">citationfname</span><span class="p">)):</span>
-        <span class="n">citationfname</span> <span class="o">=</span> <span class="s">&quot;citations.XML&quot;</span>
 
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">DfRParser</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">citationfname</span><span class="p">))</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
-    <span class="n">corpus</span> <span class="o">=</span> <span class="n">Corpus</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">index_by</span><span class="o">=</span><span class="n">index_by</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    
-    <span class="c"># Find and read N-gram data.</span>
-    <span class="k">for</span> <span class="n">sname</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-        <span class="n">fpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sname</span><span class="p">)</span>   <span class="c"># Full path.</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">sname</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
-            <span class="n">corpus</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">sname</span><span class="p">]</span> <span class="o">=</span> <span class="n">ngrams</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sname</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">corpus</span>  
-    
+    <span class="n">citationfname</span> <span class="o">=</span> <span class="n">_get_citation_filename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">featureset_types</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">papers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">citationfname</span><span class="p">:</span>   <span class="c"># Valid DfR dataset.</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">DfRParser</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">citationfname</span><span class="p">))</span>
+        <span class="n">papers</span> <span class="o">+=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+
+    <span class="k">else</span><span class="p">:</span>   <span class="c"># Possibly a directory containing several DfR datasets?</span>
+        <span class="n">papers</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># Search for DfR datasets in subdirectories.</span>
+        <span class="k">for</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">citationfname</span> <span class="o">=</span> <span class="n">_get_citation_filename</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">citationfname</span><span class="p">:</span>
+                <span class="n">subcorpus</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">index_by</span><span class="o">=</span><span class="n">index_by</span><span class="p">)</span>
+                <span class="n">papers</span> <span class="o">+=</span> <span class="n">subcorpus</span><span class="o">.</span><span class="n">papers</span>
+                <span class="k">for</span> <span class="n">featureset_name</span><span class="p">,</span> <span class="n">featureset</span> <span class="ow">in</span> <span class="n">subcorpus</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">featureset_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
+                        <span class="n">features</span><span class="p">[</span><span class="n">featureset_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="n">features</span><span class="p">[</span><span class="n">featureset_name</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">featureset</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+                    <span class="n">featureset_types</span><span class="p">[</span><span class="n">featureset_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">featureset</span><span class="p">)</span>
+        <span class="n">load_ngrams</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">papers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;No DfR datasets found at </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">corpus</span><span class="p">:</span>
+        <span class="n">corpus</span> <span class="o">=</span> <span class="n">Corpus</span><span class="p">(</span><span class="n">papers</span><span class="p">,</span> <span class="n">index_by</span><span class="o">=</span><span class="n">index_by</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">load_ngrams</span><span class="p">:</span>     <span class="c"># Find and read N-gram data.</span>
+            <span class="k">for</span> <span class="n">sname</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="n">fpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sname</span><span class="p">)</span>   <span class="c"># Full path.</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">sname</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
+                    <span class="n">datafiles</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
+                                 <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;xml&#39;</span><span class="p">)]</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">datafiles</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">features</span><span class="p">[</span><span class="n">sname</span><span class="p">]</span> <span class="o">=</span> <span class="n">ngrams</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sname</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">featureset_name</span><span class="p">,</span> <span class="n">featureset_values</span> <span class="ow">in</span> <span class="n">features</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">featureset_values</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+                <span class="n">fclass</span> <span class="o">=</span> <span class="n">featureset_types</span><span class="p">[</span><span class="n">featureset_name</span><span class="p">]</span>
+                <span class="n">featureset_values</span> <span class="o">=</span> <span class="n">fclass</span><span class="p">(</span><span class="n">featureset_values</span><span class="p">)</span>
+            <span class="n">corpus</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">featureset_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">featureset_values</span>
+
+        <span class="k">return</span> <span class="n">corpus</span>
+    <span class="k">return</span> <span class="n">papers</span>
 </div>
 <div class="viewcode-block" id="ngrams"><a class="viewcode-back" href="../../../tethne.readers.dfr.html#tethne.readers.dfr.ngrams">[docs]</a><span class="k">def</span> <span class="nf">ngrams</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">elem</span><span class="p">,</span> <span class="n">ignore_hash</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -332,19 +384,19 @@
     <span class="n">grams</span> <span class="o">=</span> <span class="n">GramGenerator</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">elem</span><span class="p">,</span> <span class="n">ignore_hash</span><span class="o">=</span><span class="n">ignore_hash</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">FeatureSet</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">Feature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">grams</span><span class="p">})</span>
 
-        </div>
+</div>
 <div class="viewcode-block" id="tokenize"><a class="viewcode-back" href="../../../tethne.readers.dfr.html#tethne.readers.dfr.tokenize">[docs]</a><span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="n">ngrams</span><span class="p">,</span> <span class="n">min_tf</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">min_len</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">apply_stoplist</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Builds a vocabulary, and replaces words with vocab indices.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    ngrams : dict</span>
 <span class="sd">        Keys are paper DOIs, values are lists of (Ngram, frequency) tuples.</span>
 <span class="sd">    apply_stoplist : bool</span>
 <span class="sd">        If True, will exclude all N-grams that contain words in the NLTK</span>
-<span class="sd">        stoplist.        </span>
-<span class="sd">        </span>
+<span class="sd">        stoplist.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    t_ngrams : dict</span>
@@ -362,22 +414,22 @@
     <span class="n">token_tf</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
     <span class="n">token_df</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
     <span class="n">t_ngrams</span> <span class="o">=</span> <span class="p">{}</span>
-    
+
     <span class="c"># Get global word counts, first.</span>
     <span class="k">for</span> <span class="n">grams</span> <span class="ow">in</span> <span class="n">ngrams</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">g</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="n">grams</span><span class="p">:</span>
             <span class="n">word_tf</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">+=</span> <span class="n">c</span>
             <span class="n">word_df</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-            
+
     <span class="k">if</span> <span class="n">apply_stoplist</span><span class="p">:</span>
         <span class="n">stoplist</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">()</span>
-            
+
     <span class="c"># Now tokenize.</span>
-    <span class="k">for</span> <span class="n">doi</span><span class="p">,</span><span class="n">grams</span> <span class="ow">in</span> <span class="n">ngrams</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">doi</span><span class="p">,</span> <span class="n">grams</span> <span class="ow">in</span> <span class="n">ngrams</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">t_ngrams</span><span class="p">[</span><span class="n">doi</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">g</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="n">grams</span><span class="p">:</span>
             <span class="n">ignore</span> <span class="o">=</span> <span class="bp">False</span>
-                        
+
             <span class="c"># Ignore extremely rare words (probably garbage).</span>
             <span class="k">if</span> <span class="n">word_tf</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">min_tf</span> <span class="ow">or</span> <span class="n">word_df</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">min_df</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">min_len</span><span class="p">:</span>
                 <span class="n">ignore</span> <span class="o">=</span> <span class="bp">True</span>
@@ -386,15 +438,15 @@
             <span class="k">elif</span> <span class="n">apply_stoplist</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
                     <span class="k">if</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">stoplist</span><span class="p">:</span>
-                        <span class="n">ignore</span> <span class="o">=</span> <span class="bp">True</span>            
+                        <span class="n">ignore</span> <span class="o">=</span> <span class="bp">True</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">ignore</span><span class="p">:</span>
-                
+
                 <span class="c"># Coerce unicode to string.</span>
                 <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
                     <span class="n">g</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
                 <span class="n">g</span> <span class="o">=</span> <span class="n">unidecode</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
-                
+
                 <span class="k">if</span> <span class="n">g</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vocab</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                     <span class="n">i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vocab</span><span class="p">)</span>
                     <span class="n">vocab</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span>
@@ -424,7 +476,7 @@
     <span class="n">paper</span> <span class="o">=</span> <span class="n">Paper</span><span class="p">()</span>
     <span class="n">pdata</span> <span class="o">=</span> <span class="n">dict_from_node</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pdata</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pdata</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
 
         <span class="n">datum</span> <span class="o">=</span> <span class="n">pdata</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">datum</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
@@ -469,7 +521,7 @@
     <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">start</span><span class="p">),</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">_handle_pubdate</span><span class="p">(</span><span class="n">pubdate</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -614,7 +666,7 @@
     <span class="k">if</span> <span class="n">jtitle</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">jtitle</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
 
-    <span class="n">ayj</span> <span class="o">=</span> <span class="n">aulast</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">auinit</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">jtitle</span>
+    <span class="n">ayj</span> <span class="o">=</span> <span class="n">aulast</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">auinit</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">jtitle</span>
 
     <span class="k">if</span> <span class="n">ayj</span> <span class="o">==</span> <span class="s">&#39;   &#39;</span><span class="p">:</span>
         <span class="n">ayj</span> <span class="o">=</span> <span class="s">&#39;Unknown paper&#39;</span>

@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>tethne.utilities package &mdash; tethne 1.0 documentation</title>
+    <title>tethne.utilities module &mdash; tethne 1.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -24,10 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
-    <link rel="top" title="tethne 1.0 documentation" href="index.html" >
-    <link rel="up" title="tethne API" href="tethne.html" >
-    <link rel="next" title="tethne.writers package" href="tethne.writers.html" >
-    <link rel="prev" title="tethne.services.geocode module" href="tethne.services.geocode.html" > 
+    <link rel="top" title="tethne 1.0 documentation" href="index.html" > 
   </head>
   <body>
 
@@ -51,8 +48,7 @@
         <li class="active"><a href="http://diging.github.io/tethne/">Tethne</a></li>
 	
         <li class="active"><a href="index.html">tethne 1.0 documentation</a></li>
-	
-          <li class="active"><a href="tethne.html" accesskey="U">tethne API</a></li> 
+	 
     </ul>
               
               
@@ -64,14 +60,6 @@
       <li class="active">
         <a href="py-modindex.html" title="Python Module Index"
            >modules</a>
-      </li>
-      <li class="active">
-        <a href="tethne.writers.html" title="tethne.writers package"
-           accesskey="N">next</a>
-      </li>
-      <li class="active">
-        <a href="tethne.services.geocode.html" title="tethne.services.geocode module"
-           accesskey="P">previous</a>
       </li>
     </ul>
               
@@ -86,10 +74,8 @@
         <div class="bodywrapper">
           <div class="body" id="spc-section-body">
             
-  <div class="section" id="tethne-utilities-package">
-<h1>tethne.utilities package<a class="headerlink" href="#tethne-utilities-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-tethne.utilities">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tethne.utilities" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="module-tethne.utilities">
+<span id="tethne-utilities-module"></span><h1>tethne.utilities module<a class="headerlink" href="#module-tethne.utilities" title="Permalink to this headline">¶</a></h1>
 <p>Helper functions.</p>
 <dl class="class">
 <dt id="tethne.utilities.Dictionary">
@@ -199,6 +185,22 @@ times in an element are contained in a list.</p>
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="tethne.utilities.normalize">
+<code class="descclassname">tethne.utilities.</code><code class="descname">normalize</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/utilities.html#normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.utilities.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize a token.</p>
+<ul class="simple">
+<li>Convert to lower-case,</li>
+<li>Remove all punctuation,</li>
+<li>Remove all numbers.</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="tethne.utilities.number">
+<code class="descclassname">tethne.utilities.</code><code class="descname">number</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/utilities.html#number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.utilities.number" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="tethne.utilities.overlap">
 <code class="descclassname">tethne.utilities.</code><code class="descname">overlap</code><span class="sig-paren">(</span><em>listA</em>, <em>listB</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/utilities.html#overlap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.utilities.overlap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return list of objects shared by listA, listB.</p>
@@ -250,7 +252,12 @@ times in an element are contained in a list.</p>
 <dd><p>exchange the values of u and v</p>
 </dd></dl>
 
-</div>
+<dl class="function">
+<dt id="tethne.utilities.tokenize">
+<code class="descclassname">tethne.utilities.</code><code class="descname">tokenize</code><span class="sig-paren">(</span><em>passage</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/utilities.html#tokenize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.utilities.tokenize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string into a list of normalized words.</p>
+</dd></dl>
+
 </div>
 
 
@@ -262,20 +269,6 @@ times in an element are contained in a list.</p>
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/logo_round.png" alt="Logo">
             </a></p>
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">tethne.utilities package</a><ul>
-<li><a class="reference internal" href="#module-tethne.utilities">Module contents</a></li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tethne.services.geocode.html"
-                        title="previous chapter">tethne.services.geocode module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tethne.writers.html"
-                        title="next chapter">tethne.writers package</a></p>
   <h3>This Page</h3>
   <div>
     <a href="_sources/tethne.utilities.txt"

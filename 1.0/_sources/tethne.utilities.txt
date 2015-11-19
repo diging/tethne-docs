@@ -1,8 +1,5 @@
-tethne.utilities package
-========================
-
-Module contents
----------------
+tethne.utilities module
+=======================
 
 .. automodule:: tethne.utilities
     :members:

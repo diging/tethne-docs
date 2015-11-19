@@ -9,3 +9,4 @@ Tutorials
    tutorial.reconciling_data
    tutorial.networks
    tutorial.topic_modeling
+   tutorial.corpora

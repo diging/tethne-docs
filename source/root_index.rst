@@ -1,29 +1,32 @@
 Tethne: Corpus Analysis for Historians
 ======================================
 
-Tethne is a Python package that draws together tools and techniques from bibliometrics, 
-computational linguistics, and social influence modeling into a single easy-to-use corpus
+Tethne is a Python package that draws together tools and techniques from bibliometrics and
+computational linguistics into a single easy-to-use corpus
 analysis framework. Scholars can use Tethne to parse and organize data from the ISI Web of
-Science, Scopus, and JSTOR Data-for-Research databases, and generate time-variant 
-citation-based :mod:`.networks`\, :mod:`.corpus` models, and :mod:`.social` influence 
-models. Tethne also provides :mod:`.writers` that make it easy to visualize those models
+Science, JSTOR Data-for-Research, and Zotero collections, and generate time-variant
+citation-based networks and corpus models (including topic models). Tethne also provides
+writers that make it easy to visualize those models
 using mainstream network visualization software (eg `Cyotoscape <http://cytoscape.org>`_
-and `Gephi <http://gephi.org>`_) and the `MatPlotLib Python library 
-<http://matplotlib.org/>`_. Dataset :mod:`.persistence` for archiving and sharing data is
-achieved using the `HDF5 file format <http://www.hdfgroup.org/HDF5/>`_.
+and `Gephi <http://gephi.org>`_) and the `MatPlotLib Python library
+<http://matplotlib.org/>`_.
+
+.. note:: This documentation is under extensive revision in advance of v1.0. Some of the
+          content is out-of-date or incorrect. Please report questions or bugs on
+          `GitHub <https://github.com/diging/tethne/issues>`_.
 
 Download
 --------
 
 * Latest stable version: v0.6-beta
-* Development branch: 
+* Development branch:
 
 Documentation
 -------------
 
 .. toctree::
    :maxdepth: 1
-   
+
    installation
    quickstart
    tutorials
@@ -33,14 +36,14 @@ Getting Help
 ------------
 
 The best way to get help is to create a new issue, `here
-<https://github.com/diging/tethne/issues>`_. When reporting bugs, be sure to include as 
+<https://github.com/diging/tethne/issues>`_. When reporting bugs, be sure to include as
 much detail as possible. Feel free to suggest new features or improvements!
 
 Full Disclosure
 ---------------
 Tethne is developed by the `Digital Innovation Group (DigInG)
 <http://devo-evo.lab.asu.edu/diging>`_, part of the `Laubichler Lab
-<http://devo-evo.lab.asu.edu>`_ in the `Center for Biology & Society 
+<http://devo-evo.lab.asu.edu>`_ in the `Center for Biology & Society
 <http://cbs.asu.edu>`_ at ASU.
 
 This material is based upon work supported by the National Science Foundation Graduate
@@ -67,4 +70,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
