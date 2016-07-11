@@ -79,6 +79,8 @@
   <h1>Source code for tethne.networks.topics</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Build networks from topics in a topic model.</span>
+
+<span class="sd">The current implementation assumes that you are using a :class:`.LDAModel`\.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -100,8 +102,23 @@
 
 <div class="viewcode-block" id="terms"><a class="viewcode-back" href="../../../tethne.networks.html#tethne.networks.topics.terms">[docs]</a><span class="k">def</span> <span class="nf">terms</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Two terms are coupled if they belong to the same topic with phi &gt; threshold.</span>
+<span class="sd">    Two terms are coupled if the posterior probability for both terms is</span>
+<span class="sd">    greather than ``threshold`` for the same topic.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : :class:`.LDAModel`</span>
+<span class="sd">    threshold : float</span>
+<span class="sd">        Default: 0.01</span>
+<span class="sd">    kwargs : kwargs</span>
+<span class="sd">        Passed on to :func:`.cooccurrence`\.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :ref:`networkx.Graph &lt;networkx:graph&gt;`</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">select</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">dc</span><span class="p">:</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="n">threshold</span>
     <span class="n">graph</span> <span class="o">=</span> <span class="n">cooccurrence</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">phi</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">select</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -114,7 +131,21 @@
 </div>
 <div class="viewcode-block" id="topic_coupling"><a class="viewcode-back" href="../../../tethne.networks.html#tethne.networks.topics.topic_coupling">[docs]</a><span class="k">def</span> <span class="nf">topic_coupling</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Two papers are coupled if they both contain a shared topic above threshold.</span>
+<span class="sd">    Two papers are coupled if they both contain a shared topic above a</span>
+<span class="sd">    ``threshold``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : :class:`.LDAModel`</span>
+<span class="sd">    threshold : float</span>
+<span class="sd">        Default: ``3./model.Z``</span>
+<span class="sd">    kwargs : kwargs</span>
+<span class="sd">        Passed on to :func:`.coupling`\.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :ref:`networkx.Graph &lt;networkx:graph&gt;`</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">threshold</span><span class="p">:</span>
         <span class="n">threshold</span> <span class="o">=</span> <span class="mf">3.</span><span class="o">/</span><span class="n">model</span><span class="o">.</span><span class="n">Z</span>
@@ -127,7 +158,21 @@
 </div>
 <div class="viewcode-block" id="cotopics"><a class="viewcode-back" href="../../../tethne.networks.html#tethne.networks.topics.cotopics">[docs]</a><span class="k">def</span> <span class="nf">cotopics</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Two topics are coupled if they occur in the same documents.</span>
+<span class="sd">    Two topics are coupled if they occur (above some ``threshold``) in the same</span>
+<span class="sd">    document (s).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : :class:`.LDAModel`</span>
+<span class="sd">    threshold : float</span>
+<span class="sd">        Default: ``2./model.Z``</span>
+<span class="sd">    kwargs : kwargs</span>
+<span class="sd">        Passed on to :func:`.cooccurrence`\.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :ref:`networkx.Graph &lt;networkx:graph&gt;`</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">threshold</span><span class="p">:</span>
         <span class="n">threshold</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">/</span><span class="n">model</span><span class="o">.</span><span class="n">Z</span>
@@ -144,9 +189,8 @@
 <span class="sd">    &lt;http://docs.scipy.org/doc/scipy/reference/spatial.distance.html&gt;`_</span>
 <span class="sd">    using :ref:`sparse-feature-vector`\s over the dimensions in ``model``.</span>
 
-<span class="sd">    Refer to the documentation for :func:`.analyze.features.distance` for</span>
-<span class="sd">    a list of distance statistics. The only two methods that will not work</span>
-<span class="sd">    in this context are ``hamming`` and ``jaccard``.</span>
+<span class="sd">    The only two methods that will not work in this context are ``hamming`` and</span>
+<span class="sd">    ``jaccard``.</span>
 
 <span class="sd">    Distances are inverted to a similarity metric, which is log-transformed by</span>
 <span class="sd">    default (see ``transform`` parameter, below). Edges are included if they are</span>
@@ -183,9 +227,10 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    thegraph : networkx.Graph</span>
+<span class="sd">    :ref:`networkx.Graph &lt;networkx:graph&gt;`</span>
 <span class="sd">        Similarity values are included as edge weights. Node attributes are set</span>
-<span class="sd">        using the fields in ``model.metadata``.</span>
+<span class="sd">        using the fields in ``model.metadata``. See</span>
+<span class="sd">        :meth:`networkx.Graph.__init__`</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -193,10 +238,10 @@
 <span class="sd">    .. code-block:: python</span>
 
 <span class="sd">       &gt;&gt;&gt; from tethne.networks import topics</span>
-<span class="sd">       &gt;&gt;&gt; thegraph = topics.distance(MyLDAModel, &#39;cosine&#39;)</span>
+<span class="sd">       &gt;&gt;&gt; thegraph = topics.distance(myLDAModel, &#39;cosine&#39;)</span>
 
-<span class="sd">       &gt;&gt;&gt; from tethne.writers import graph</span>
-<span class="sd">       &gt;&gt;&gt; graph.to_graphml(thegraph, &#39;~./thegraph.graphml&#39;)</span>
+<span class="sd">       &gt;&gt;&gt; import tethne.writers as wr</span>
+<span class="sd">       &gt;&gt;&gt; wr.to_graphml(thegraph, &#39;~./thegraph.graphml&#39;)</span>
 
 <span class="sd">    .. figure:: _static/images/lda_cosine_network.png</span>
 <span class="sd">       :width: 80%</span>

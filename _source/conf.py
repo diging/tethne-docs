@@ -41,7 +41,7 @@ pdf_documents = [('index',
 todo_include_todos = True
 
 intersphinx_mapping = {
-    'networkx': ('http://networkx.github.io/documentation/networkx-1.8/', None)
+    'networkx': ('http://networkx.github.io/documentation/networkx-1.9/', None)
 }
 
 numpydoc_show_class_members = False

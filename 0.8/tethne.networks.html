@@ -413,10 +413,32 @@ among papers in the original dataset.</p>
 <div class="section" id="module-tethne.networks.topics">
 <span id="tethne-networks-topics-module"></span><h2>tethne.networks.topics module<a class="headerlink" href="#module-tethne.networks.topics" title="Permalink to this headline">¶</a></h2>
 <p>Build networks from topics in a topic model.</p>
+<p>The current implementation assumes that you are using a <a class="reference internal" href="tethne.model.corpus.html#tethne.model.corpus.mallet.LDAModel" title="tethne.model.corpus.mallet.LDAModel"><code class="xref py py-class docutils literal"><span class="pre">LDAModel</span></code></a>.</p>
 <dl class="function">
 <dt id="tethne.networks.topics.cotopics">
 <code class="descclassname">tethne.networks.topics.</code><code class="descname">cotopics</code><span class="sig-paren">(</span><em>model</em>, <em>threshold=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/topics.html#cotopics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.topics.cotopics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Two topics are coupled if they occur in the same documents.</p>
+<dd><p>Two topics are coupled if they occur (above some <code class="docutils literal"><span class="pre">threshold</span></code>) in the same
+document (s).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>model</strong> : <a class="reference internal" href="tethne.model.corpus.html#tethne.model.corpus.mallet.LDAModel" title="tethne.model.corpus.mallet.LDAModel"><code class="xref py py-class docutils literal"><span class="pre">LDAModel</span></code></a></p>
+<p><strong>threshold</strong> : float</p>
+<blockquote>
+<div><p>Default: <code class="docutils literal"><span class="pre">2./model.Z</span></code></p>
+</div></blockquote>
+<p><strong>kwargs</strong> : kwargs</p>
+<blockquote>
+<div><p>Passed on to <a class="reference internal" href="#tethne.networks.base.cooccurrence" title="tethne.networks.base.cooccurrence"><code class="xref py py-func docutils literal"><span class="pre">cooccurrence()</span></code></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -425,9 +447,8 @@ among papers in the original dataset.</p>
 <dd><p>Generate a network of <a class="reference internal" href="tethne.classes.html#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a>s based on a distance metric from
 <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/spatial.distance.html">scipy.spatial.distance</a>
 using <span class="xref std std-ref">sparse-feature-vector</span>s over the dimensions in <code class="docutils literal"><span class="pre">model</span></code>.</p>
-<p>Refer to the documentation for <code class="xref py py-func docutils literal"><span class="pre">analyze.features.distance()</span></code> for
-a list of distance statistics. The only two methods that will not work
-in this context are <code class="docutils literal"><span class="pre">hamming</span></code> and <code class="docutils literal"><span class="pre">jaccard</span></code>.</p>
+<p>The only two methods that will not work in this context are <code class="docutils literal"><span class="pre">hamming</span></code> and
+<code class="docutils literal"><span class="pre">jaccard</span></code>.</p>
 <p>Distances are inverted to a similarity metric, which is log-transformed by
 default (see <code class="docutils literal"><span class="pre">transform</span></code> parameter, below). Edges are included if they are
 at or above the <a href="#id2"><span class="problematic" id="id3">``</span></a>percentile``th percentile.</p>
@@ -475,10 +496,11 @@ building the graph. So far only &#8216;log&#8217; and None are supported.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>thegraph</strong> : networkx.Graph</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a></p>
 <blockquote class="last">
 <div><p>Similarity values are included as edge weights. Node attributes are set
-using the fields in <code class="docutils literal"><span class="pre">model.metadata</span></code>.</p>
+using the fields in <code class="docutils literal"><span class="pre">model.metadata</span></code>. See
+<a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/generated/networkx.Graph.__init__.html#networkx.Graph.__init__" title="(in NetworkX v1.8)"><code class="xref py py-meth docutils literal"><span class="pre">networkx.Graph.__init__()</span></code></a></p>
 </div></blockquote>
 </td>
 </tr>
@@ -486,10 +508,10 @@ using the fields in <code class="docutils literal"><span class="pre">model.metad
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tethne.networks</span> <span class="kn">import</span> <span class="n">topics</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">thegraph</span> <span class="o">=</span> <span class="n">topics</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">MyLDAModel</span><span class="p">,</span> <span class="s">&#39;cosine&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thegraph</span> <span class="o">=</span> <span class="n">topics</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">myLDAModel</span><span class="p">,</span> <span class="s">&#39;cosine&#39;</span><span class="p">)</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tethne.writers</span> <span class="kn">import</span> <span class="n">graph</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">to_graphml</span><span class="p">(</span><span class="n">thegraph</span><span class="p">,</span> <span class="s">&#39;~./thegraph.graphml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tethne.writers</span> <span class="kn">as</span> <span class="nn">wr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wr</span><span class="o">.</span><span class="n">to_graphml</span><span class="p">(</span><span class="n">thegraph</span><span class="p">,</span> <span class="s">&#39;~./thegraph.graphml&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure" id="id5">
@@ -503,13 +525,55 @@ papers published in the same journal tend to cluster together.</span></p>
 <dl class="function">
 <dt id="tethne.networks.topics.terms">
 <code class="descclassname">tethne.networks.topics.</code><code class="descname">terms</code><span class="sig-paren">(</span><em>model</em>, <em>threshold=0.01</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/topics.html#terms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.topics.terms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Two terms are coupled if they belong to the same topic with phi &gt; threshold.</p>
+<dd><p>Two terms are coupled if the posterior probability for both terms is
+greather than <code class="docutils literal"><span class="pre">threshold</span></code> for the same topic.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>model</strong> : <a class="reference internal" href="tethne.model.corpus.html#tethne.model.corpus.mallet.LDAModel" title="tethne.model.corpus.mallet.LDAModel"><code class="xref py py-class docutils literal"><span class="pre">LDAModel</span></code></a></p>
+<p><strong>threshold</strong> : float</p>
+<blockquote>
+<div><p>Default: 0.01</p>
+</div></blockquote>
+<p><strong>kwargs</strong> : kwargs</p>
+<blockquote>
+<div><p>Passed on to <a class="reference internal" href="#tethne.networks.base.cooccurrence" title="tethne.networks.base.cooccurrence"><code class="xref py py-func docutils literal"><span class="pre">cooccurrence()</span></code></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="tethne.networks.topics.topic_coupling">
 <code class="descclassname">tethne.networks.topics.</code><code class="descname">topic_coupling</code><span class="sig-paren">(</span><em>model</em>, <em>threshold=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/networks/topics.html#topic_coupling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.networks.topics.topic_coupling" title="Permalink to this definition">¶</a></dt>
-<dd><p>Two papers are coupled if they both contain a shared topic above threshold.</p>
+<dd><p>Two papers are coupled if they both contain a shared topic above a
+<code class="docutils literal"><span class="pre">threshold</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>model</strong> : <a class="reference internal" href="tethne.model.corpus.html#tethne.model.corpus.mallet.LDAModel" title="tethne.model.corpus.mallet.LDAModel"><code class="xref py py-class docutils literal"><span class="pre">LDAModel</span></code></a></p>
+<p><strong>threshold</strong> : float</p>
+<blockquote>
+<div><p>Default: <code class="docutils literal"><span class="pre">3./model.Z</span></code></p>
+</div></blockquote>
+<p><strong>kwargs</strong> : kwargs</p>
+<blockquote>
+<div><p>Passed on to <a class="reference internal" href="#tethne.networks.base.coupling" title="tethne.networks.base.coupling"><code class="xref py py-func docutils literal"><span class="pre">coupling()</span></code></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>

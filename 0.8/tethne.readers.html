@@ -531,105 +531,21 @@ stoplist.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="tethne-readers-dspace-module">
-<h2>tethne.readers.dspace module<a class="headerlink" href="#tethne-readers-dspace-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-tethne.readers.dspace">
+<span id="tethne-readers-dspace-module"></span><h2>tethne.readers.dspace module<a class="headerlink" href="#module-tethne.readers.dspace" title="Permalink to this headline">¶</a></h2>
+<p>Reader for the DuraSpace API.</p>
+<p>This module is not yet implemented. Earlier versions of Tethne had a crude
+method for reading data from an old REST API. The current version of DuraSpace
+has a very different API, and we ought to write a much better client.</p>
+<p>Stay tuned!</p>
 </div>
 <div class="section" id="module-tethne.readers.scopus">
 <span id="tethne-readers-scopus-module"></span><h2>tethne.readers.scopus module<a class="headerlink" href="#module-tethne.readers.scopus" title="Permalink to this headline">¶</a></h2>
-<p>Reader for Scopus CSV data files.</p>
-<dl class="function">
-<dt id="tethne.readers.scopus.corpus_from_dir">
-<code class="descclassname">tethne.readers.scopus.</code><code class="descname">corpus_from_dir</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/scopus.html#corpus_from_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.scopus.corpus_from_dir" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path</strong> : string</p>
-<blockquote>
-<div><p>Path to directory of Scopus CSV data files.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>papers</strong> : list</p>
-<blockquote class="last">
-<div><p>A list of <a class="reference internal" href="tethne.classes.html#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a> objects.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="tethne.readers.scopus.from_dir">
-<code class="descclassname">tethne.readers.scopus.</code><code class="descname">from_dir</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/scopus.html#from_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.scopus.from_dir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convenience function for generating a list of <a class="reference internal" href="tethne.classes.html#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a> from a
-directory of Scopus CSV data files.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path</strong> : string</p>
-<blockquote>
-<div><p>Path to directory of Scopus CSV data files.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>papers</strong> : list</p>
-<blockquote>
-<div><p>A list of <a class="reference internal" href="tethne.classes.html#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a> objects.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><strong>IOError</strong></p>
-<blockquote class="last">
-<div><p>Invalid path.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span>  <span class="nn">tethne.readers</span> <span class="nn">as</span> <span class="nn">rd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">papers</span> <span class="o">=</span> <span class="n">rd</span><span class="o">.</span><span class="n">scopus</span><span class="o">.</span><span class="n">from_dir</span><span class="p">(</span><span class="s">&quot;/Path/to/datadir&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="tethne.readers.scopus.read">
-<code class="descclassname">tethne.readers.scopus.</code><code class="descname">read</code><span class="sig-paren">(</span><em>datapath</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/scopus.html#read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.scopus.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>Yields a list of <a class="reference internal" href="tethne.classes.html#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a> instances from a Scopus CSV data file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>datapath</strong> : string</p>
-<blockquote>
-<div><p>Filepath to the Web of Science field-tagged data file.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>papers</strong> : list</p>
-<blockquote class="last">
-<div><p>A list of <a class="reference internal" href="tethne.classes.html#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a> instances.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tethne.readers</span> <span class="kn">as</span> <span class="nn">rd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">papers</span> <span class="o">=</span> <span class="n">rd</span><span class="o">.</span><span class="n">scopus</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s">&quot;/Path/to/scopus.csv&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="tethne.readers.scopus.read_corpus">
-<code class="descclassname">tethne.readers.scopus.</code><code class="descname">read_corpus</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/readers/scopus.html#read_corpus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.readers.scopus.read_corpus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<p>Reader for Scopus bibliographic database.</p>
+<p>Earlier versions of Tethne had limited support for Scopus. As of 0.8, we&#8217;ve
+moved away from Scopus due to (a) lack of access, and (b) lack of time. If
+you&#8217;re interested in using Scopus data in Tethne, please consider contributing
+to the project.</p>
 </div>
 <div class="section" id="module-tethne.readers.wos">
 <span id="tethne-readers-wos-module"></span><h2>tethne.readers.wos module<a class="headerlink" href="#module-tethne.readers.wos" title="Permalink to this headline">¶</a></h2>
@@ -1109,7 +1025,7 @@ should exist at <code class="docutils literal"><span class="pre">/my/working/dir
 <td></td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#module-tethne.readers.scopus" title="tethne.readers.scopus"><code class="xref py py-obj docutils literal"><span class="pre">scopus</span></code></a></td>
-<td>Reader for Scopus CSV data files.</td>
+<td>Reader for Scopus bibliographic database.</td>
 </tr>
 </tbody>
 </table>
@@ -1195,7 +1111,7 @@ available.</p>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-tethne.readers.base">tethne.readers.base module</a></li>
 <li><a class="reference internal" href="#module-tethne.readers.dfr">tethne.readers.dfr module</a></li>
-<li><a class="reference internal" href="#tethne-readers-dspace-module">tethne.readers.dspace module</a></li>
+<li><a class="reference internal" href="#module-tethne.readers.dspace">tethne.readers.dspace module</a></li>
 <li><a class="reference internal" href="#module-tethne.readers.scopus">tethne.readers.scopus module</a></li>
 <li><a class="reference internal" href="#module-tethne.readers.wos">tethne.readers.wos module</a></li>
 <li><a class="reference internal" href="#module-tethne.readers.zotero">tethne.readers.zotero module</a></li>

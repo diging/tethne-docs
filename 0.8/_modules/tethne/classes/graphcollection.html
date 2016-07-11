@@ -99,10 +99,10 @@
 <div class="viewcode-block" id="GraphCollection"><a class="viewcode-back" href="../../../tethne.classes.html#tethne.classes.graphcollection.GraphCollection">[docs]</a><span class="k">class</span> <span class="nc">GraphCollection</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A :class:`.GraphCollection` is an indexed set of</span>
-<span class="sd">    :class:`.networkx.Graph`\s.</span>
+<span class="sd">    :ref:`networkx.Graph &lt;networkx:graph&gt;`\s.</span>
 
-<span class="sd">    When you add a :class:`networx.Graph`\, the nodes are indexed and</span>
-<span class="sd">    relabeled.</span>
+<span class="sd">    When you add a :ref:`networkx.Graph &lt;networkx:graph&gt;`, the nodes are indexed</span>
+<span class="sd">    and relabeled.</span>
 
 <span class="sd">    .. code-block:: python</span>
 
@@ -176,8 +176,8 @@
 
 <div class="viewcode-block" id="GraphCollection.build"><a class="viewcode-back" href="../../../tethne.classes.html#tethne.classes.graphcollection.GraphCollection.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">corpus</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">slice_kwargs</span><span class="o">=</span><span class="p">{},</span> <span class="n">method_kwargs</span><span class="o">=</span><span class="p">{}):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate a set of :class:`networkx.Graph`\s using ``method`` on the</span>
-<span class="sd">        slices in ``corpus``\.</span>
+<span class="sd">        Generate a set of :ref:`networkx.Graph &lt;networkx:graph&gt;`\s using</span>
+<span class="sd">        ``method`` on the slices in ``corpus``\.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -199,14 +199,14 @@
 </div>
 <div class="viewcode-block" id="GraphCollection.add"><a class="viewcode-back" href="../../../tethne.classes.html#tethne.classes.graphcollection.GraphCollection.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Index and add a :class:`networkx.Graph` to the</span>
+<span class="sd">        Index and add a :ref:`networkx.Graph &lt;networkx:graph&gt;` to the</span>
 <span class="sd">        :class:`.GraphCollection`.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        name : hashable</span>
 <span class="sd">            Unique name used to identify the `graph`.</span>
-<span class="sd">        graph : networkx.Graph</span>
+<span class="sd">        graph : :ref:`networkx.Graph &lt;networkx:graph&gt;`</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -341,7 +341,7 @@
 </div>
 <div class="viewcode-block" id="GraphCollection.collapse"><a class="viewcode-back" href="../../../tethne.classes.html#tethne.classes.graphcollection.GraphCollection.collapse">[docs]</a>    <span class="k">def</span> <span class="nf">collapse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weight_attr</span><span class="o">=</span><span class="s">&#39;weight&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a :class:`networkx.Graph` or :class:`networkx.DiGraph` in which</span>
+<span class="sd">        Returns a :ref:`networkx.Graph &lt;networkx:graph&gt;` or :class:`networkx.DiGraph` in which</span>
 <span class="sd">        the edges between each pair of nodes are collapsed into a single</span>
 <span class="sd">        weighted edge.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -493,7 +493,7 @@
 </div>
 <div class="viewcode-block" id="GraphCollection.node_history"><a class="viewcode-back" href="../../../tethne.classes.html#tethne.classes.graphcollection.GraphCollection.node_history">[docs]</a>    <span class="k">def</span> <span class="nf">node_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">attribute</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns a dictionary of attribute values for each ``networkx.Graph`` in</span>
+<span class="sd">        Returns a dictionary of attribute values for each :ref:`networkx.Graph &lt;networkx:graph&gt;` in</span>
 <span class="sd">        the :class:`.GraphCollection` for a single node.</span>
 
 <span class="sd">        Parameters</span>
@@ -546,7 +546,7 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        graph : :class:`networkx.Graph`</span>
+<span class="sd">        graph : :ref:`networkx.Graph &lt;networkx:graph&gt;`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master_graph</span><span class="p">)</span> <span class="ow">is</span> <span class="n">nx</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">:</span>

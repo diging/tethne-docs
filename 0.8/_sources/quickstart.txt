@@ -37,7 +37,7 @@ create a :func:`.coauthors` network like this:
    >>> from tethne.networks import coauthors
    >>> coauthor_graph = coauthors(corpus)
 
-All of Tethne's graph-building methods return :class:`networkx.Graph` objects.
+All of Tethne's graph-building methods return :ref:`networkx.Graph <networkx:graph>` objects.
 For more information, see the `NetworkX documentation
 <https://networkx.github.io/>`_. The upshot is that you can use any of the
 `algorithms

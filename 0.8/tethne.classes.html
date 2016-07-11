@@ -88,7 +88,7 @@
 </div>
 <div class="section" id="module-tethne.classes.corpus">
 <span id="tethne-classes-corpus-module"></span><h2>tethne.classes.corpus module<a class="headerlink" href="#module-tethne.classes.corpus" title="Permalink to this headline">¶</a></h2>
-<p>This module provides <a class="reference internal" href="#tethne.classes.corpus.Corpus" title="tethne.classes.corpus.Corpus"><code class="xref py py-class docutils literal"><span class="pre">Corpus</span></code></a>.</p>
+<p>A <a class="reference internal" href="#tethne.classes.corpus.Corpus" title="tethne.classes.corpus.Corpus"><code class="xref py py-class docutils literal"><span class="pre">Corpus</span></code></a> is a container for <a class="reference internal" href="#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a>s.</p>
 <dl class="class">
 <dt id="tethne.classes.corpus.Corpus">
 <em class="property">class </em><code class="descclassname">tethne.classes.corpus.</code><code class="descname">Corpus</code><span class="sig-paren">(</span><em>papers=[], index_by=None, index_fields=['authors', 'citations', 'ayjid', 'date'], index_features=['authors', 'citations'], **kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/classes/corpus.html#Corpus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.classes.corpus.Corpus" title="Permalink to this definition">¶</a></dt>
@@ -133,13 +133,10 @@
 <tr class="row-odd"><td><a class="reference internal" href="#tethne.classes.corpus.Corpus.slice" title="tethne.classes.corpus.Corpus.slice"><code class="xref py py-obj docutils literal"><span class="pre">slice</span></code></a></td>
 <td>Returns a generator that yields <code class="docutils literal"><span class="pre">(key,</span> <span class="pre">subcorpus)</span></code> tuples for sequential time windows.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">structuredfeatures</span></code></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#tethne.classes.corpus.Corpus.subcorpus" title="tethne.classes.corpus.Corpus.subcorpus"><code class="xref py py-obj docutils literal"><span class="pre">subcorpus</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#tethne.classes.corpus.Corpus.subcorpus" title="tethne.classes.corpus.Corpus.subcorpus"><code class="xref py py-obj docutils literal"><span class="pre">subcorpus</span></code></a></td>
 <td>Generates a new <a class="reference internal" href="#tethne.classes.corpus.Corpus" title="tethne.classes.corpus.Corpus"><code class="xref py py-class docutils literal"><span class="pre">Corpus</span></code></a> using the criteria in <code class="docutils literal"><span class="pre">selector</span></code>.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#tethne.classes.corpus.Corpus.top_features" title="tethne.classes.corpus.Corpus.top_features"><code class="xref py py-obj docutils literal"><span class="pre">top_features</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#tethne.classes.corpus.Corpus.top_features" title="tethne.classes.corpus.Corpus.top_features"><code class="xref py py-obj docutils literal"><span class="pre">top_features</span></code></a></td>
 <td>Retrieves the top <code class="docutils literal"><span class="pre">topn</span></code> most numerous features in the corpus.</td>
 </tr>
 </tbody>
@@ -243,7 +240,7 @@ just like <code class="xref py py-meth docutils literal"><span class="pre">Corpu
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>slice_kwargs</strong> : kwargs</p>
 <blockquote>
-<div><p>Keyword arguments to be passed to <a href="#id1"><span class="problematic" id="id2">:method:`.Corpus.slice`</span></a>.</p>
+<div><p>Keyword arguments to be passed to <a class="reference internal" href="#tethne.classes.corpus.Corpus.slice" title="tethne.classes.corpus.Corpus.slice"><code class="xref py py-meth docutils literal"><span class="pre">Corpus.slice()</span></code></a>.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -286,7 +283,7 @@ the feature occurs in each slice.</p>
 </div></blockquote>
 <p><strong>slice_kwargs</strong> : kwargs</p>
 <blockquote>
-<div><p>Keyword arguments to be passed to <a href="#id3"><span class="problematic" id="id4">:method:`.Corpus.slice`</span></a>.</p>
+<div><p>Keyword arguments to be passed to <a class="reference internal" href="#tethne.classes.corpus.Corpus.slice" title="tethne.classes.corpus.Corpus.slice"><code class="xref py py-meth docutils literal"><span class="pre">Corpus.slice()</span></code></a>.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -500,11 +497,11 @@ sequential time windows.</p>
 &#8220;time-period&#8221; patterns. Whereas time-period slicing divides the corpus
 into subcorpora by sequential non-overlapping time periods, subcorpora
 generated by time-window slicing can overlap.</p>
-<div class="figure align-center" id="id9">
+<div class="figure align-center" id="id5">
 <a class="reference internal image-reference" href="_images/timeline.timeslice.png"><img alt="_images/timeline.timeslice.png" src="_images/timeline.timeslice.png" style="width: 400px;" /></a>
 <p class="caption"><span class="caption-text"><strong>Time-period</strong> slicing, with a window-size of 4 years.</span></p>
 </div>
-<div class="figure align-center" id="id10">
+<div class="figure align-center" id="id6">
 <a class="reference internal image-reference" href="_images/timeline.timewindow.png"><img alt="_images/timeline.timewindow.png" src="_images/timeline.timewindow.png" style="width: 400px;" /></a>
 <p class="caption"><span class="caption-text"><strong>Time-window</strong> slicing, with a window-size of 4 years and a
 step-size of 1 year.</span></p>
@@ -700,13 +697,13 @@ tuples...</p>
 </div>
 <p>...or by passing a list of raw feature tokens:</p>
 <p>To get the set of unique features in this <a class="reference internal" href="#tethne.classes.feature.Feature" title="tethne.classes.feature.Feature"><code class="xref py py-class docutils literal"><span class="pre">Feature</span></code></a>, use
-<a href="#id5"><span class="problematic" id="id6">:prop:`.Feature.unique`</span></a>:</p>
+<a href="#id1"><span class="problematic" id="id2">:prop:`.Feature.unique`</span></a>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">myFeature</span><span class="o">.</span><span class="n">unique</span>
 <span class="go">set([&#39;the&#39;, &#39;pine&#39;, &#39;trapezoid&#39;])</span>
 </pre></div>
 </div>
 <p>Normalized feature values (so that all values sum to 1.) can be accessed
-using <a href="#id7"><span class="problematic" id="id8">:prop:`.Feature.norm`</span></a>.</p>
+using <a href="#id3"><span class="problematic" id="id4">:prop:`.Feature.norm`</span></a>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">myFeature</span><span class="o">.</span><span class="n">norm</span>
 <span class="go">[(&#39;the&#39;, 0.25), (&#39;pine&#39;, 0.125), (&#39;trapezoid&#39;, 0.625)]</span>
 </pre></div>
@@ -999,9 +996,9 @@ treated as a single chunk.</p>
 <em class="property">class </em><code class="descclassname">tethne.classes.graphcollection.</code><code class="descname">GraphCollection</code><span class="sig-paren">(</span><em>corpus=None</em>, <em>method=None</em>, <em>slice_kwargs={}</em>, <em>method_kwargs={}</em>, <em>directed=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/classes/graphcollection.html#GraphCollection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.classes.graphcollection.GraphCollection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">dict</span></code></p>
 <p>A <a class="reference internal" href="#tethne.classes.graphcollection.GraphCollection" title="tethne.classes.graphcollection.GraphCollection"><code class="xref py py-class docutils literal"><span class="pre">GraphCollection</span></code></a> is an indexed set of
-<code class="xref py py-class docutils literal"><span class="pre">networkx.Graph</span></code>s.</p>
-<p>When you add a <code class="xref py py-class docutils literal"><span class="pre">networx.Graph</span></code>, the nodes are indexed and
-relabeled.</p>
+<a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a>s.</p>
+<p>When you add a <a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a>, the nodes are indexed
+and relabeled.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tethne</span> <span class="kn">import</span> <span class="n">GraphCollection</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">networkx</span> <span class="kn">as</span> <span class="nn">nx</span>
 
@@ -1030,7 +1027,7 @@ a method to the constructor, or use <a class="reference internal" href="#tethne.
 <dl class="method">
 <dt id="tethne.classes.graphcollection.GraphCollection.add">
 <code class="descname">add</code><span class="sig-paren">(</span><em>name</em>, <em>graph</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/classes/graphcollection.html#GraphCollection.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.classes.graphcollection.GraphCollection.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Index and add a <code class="xref py py-class docutils literal"><span class="pre">networkx.Graph</span></code> to the
+<dd><p>Index and add a <a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a> to the
 <a class="reference internal" href="#tethne.classes.graphcollection.GraphCollection" title="tethne.classes.graphcollection.GraphCollection"><code class="xref py py-class docutils literal"><span class="pre">GraphCollection</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1040,7 +1037,7 @@ a method to the constructor, or use <a class="reference internal" href="#tethne.
 <blockquote>
 <div><p>Unique name used to identify the <cite>graph</cite>.</p>
 </div></blockquote>
-<p><strong>graph</strong> : networkx.Graph</p>
+<p><strong>graph</strong> : <a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a></p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><strong>ValueError</strong></p>
@@ -1107,8 +1104,8 @@ top-level keys.</p>
 <dl class="method">
 <dt id="tethne.classes.graphcollection.GraphCollection.build">
 <code class="descname">build</code><span class="sig-paren">(</span><em>corpus</em>, <em>method</em>, <em>slice_kwargs={}</em>, <em>method_kwargs={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/classes/graphcollection.html#GraphCollection.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.classes.graphcollection.GraphCollection.build" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a set of <code class="xref py py-class docutils literal"><span class="pre">networkx.Graph</span></code>s using <code class="docutils literal"><span class="pre">method</span></code> on the
-slices in <code class="docutils literal"><span class="pre">corpus</span></code>.</p>
+<dd><p>Generate a set of <a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a>s using
+<code class="docutils literal"><span class="pre">method</span></code> on the slices in <code class="docutils literal"><span class="pre">corpus</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1135,7 +1132,7 @@ slices in <code class="docutils literal"><span class="pre">corpus</span></code>.
 <dl class="method">
 <dt id="tethne.classes.graphcollection.GraphCollection.collapse">
 <code class="descname">collapse</code><span class="sig-paren">(</span><em>weight_attr='weight'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/classes/graphcollection.html#GraphCollection.collapse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.classes.graphcollection.GraphCollection.collapse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a <code class="xref py py-class docutils literal"><span class="pre">networkx.Graph</span></code> or <code class="xref py py-class docutils literal"><span class="pre">networkx.DiGraph</span></code> in which
+<dd><p>Returns a <a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a> or <code class="xref py py-class docutils literal"><span class="pre">networkx.DiGraph</span></code> in which
 the edges between each pair of nodes are collapsed into a single
 weighted edge.</p>
 </dd></dl>
@@ -1228,7 +1225,7 @@ the index.</p>
 <dl class="method">
 <dt id="tethne.classes.graphcollection.GraphCollection.node_history">
 <code class="descname">node_history</code><span class="sig-paren">(</span><em>node</em>, <em>attribute</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tethne/classes/graphcollection.html#GraphCollection.node_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tethne.classes.graphcollection.GraphCollection.node_history" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a dictionary of attribute values for each <code class="docutils literal"><span class="pre">networkx.Graph</span></code> in
+<dd><p>Returns a dictionary of attribute values for each <a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a> in
 the <a class="reference internal" href="#tethne.classes.graphcollection.GraphCollection" title="tethne.classes.graphcollection.GraphCollection"><code class="xref py py-class docutils literal"><span class="pre">GraphCollection</span></code></a> for a single node.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1302,7 +1299,7 @@ graphs in which an edge exists between node pairs.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>graph</strong> : <code class="xref py py-class docutils literal"><span class="pre">networkx.Graph</span></code></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>graph</strong> : <a class="reference external" href="http://networkx.github.io/documentation/networkx-1.8/reference/classes.graph.html#graph" title="(in NetworkX v1.8)"><span class="xref std std-ref">networkx.Graph</span></a></p>
 </td>
 </tr>
 </tbody>
@@ -1421,7 +1418,7 @@ bibliographic data in Tethne.</p>
 <td>A <a class="reference internal" href="#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a> represents a single bibliographic record.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#module-tethne.classes.corpus" title="tethne.classes.corpus"><code class="xref py py-obj docutils literal"><span class="pre">corpus</span></code></a></td>
-<td>This module provides <a class="reference internal" href="#tethne.classes.corpus.Corpus" title="tethne.classes.corpus.Corpus"><code class="xref py py-class docutils literal"><span class="pre">Corpus</span></code></a>.</td>
+<td>A <a class="reference internal" href="#tethne.classes.corpus.Corpus" title="tethne.classes.corpus.Corpus"><code class="xref py py-class docutils literal"><span class="pre">Corpus</span></code></a> is a container for <a class="reference internal" href="#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a>s.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#module-tethne.classes.feature" title="tethne.classes.feature"><code class="xref py py-obj docutils literal"><span class="pre">feature</span></code></a></td>
 <td>Classes in this module provide structures for additional data about <a class="reference internal" href="#tethne.classes.paper.Paper" title="tethne.classes.paper.Paper"><code class="xref py py-class docutils literal"><span class="pre">Paper</span></code></a>s.</td>

@@ -4,7 +4,8 @@ Getting Bibliographic Metadata
 ==============================
 
 As of v0.7, Tethne can parse metadata from the ISI Web of Science, JSTOR's
-Data-for-Research portal, Zotero (RDF), and Scopus (limited support).
+Data-for-Research portal, and Zotero (RDF). Scopus is not currently supported,
+but we welcome contributions from those using that database!
 
 .. contents::
    :local:
@@ -228,11 +229,11 @@ structure (pagination and word order) will be preserved. See ...
 Scopus
 ------
 
-As of v0.6.0-beta, Tethne provides limited support for data from the `Scopus
-<http://www.elsevier.com/online-tools/scopus>`_ bibliographic database. Tethne
-has undergone relatively less testing with Scopus datasets, so it is probable
-that errors will arise. Please help make Tethne better by submitting bug
-reports!
+.. note:: Earlier versions of Tethne had limited support for Scopus. As of 0.8, we've
+          moved away from Scopus due to (a) lack of access, and (b) lack of time. If
+          you're interested in using Scopus data in Tethne, please consider contributing
+          to the project. We're leaving this documentation here just in case the Scopus
+          reader comes back someday.
 
 Perform your search without whatever parameters you prefer. In this example, we
 are searching for documents with ``phenotypic`` or ``plasticity`` in their

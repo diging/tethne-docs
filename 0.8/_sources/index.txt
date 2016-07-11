@@ -9,6 +9,7 @@ Documentation
 
    overview
    installation
+   getting_data
    quickstart
    tutorial.mallet
    tethne

@@ -463,9 +463,9 @@ Wrapping up, Looking forward
 ----------------------------
 
 To generate a network of papers connected by topics-in-common, try the
-:func:`.topic_coupling` method.
+:func:`.topic_coupling` function.
 
-Since Tethne is still under active development, methods for working with topic
+Since Tethne is still under active development, function for working with topic
 modeling and other corpus-analysis techniques are being added all the time, and
 existing functions will likely change as we find ways to streamline workflows.
 This tutorial will be updated and extended as development proceeds.
